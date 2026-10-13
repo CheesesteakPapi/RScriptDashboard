@@ -1,0 +1,485 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "evidence_detail",
+  "position": {
+    "x": 24,
+    "y": 240,
+    "z": 7000,
+    "width": 1232,
+    "height": 438,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Uncategorized evidence  ·  oldest first'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#243746'"
+                    }
+                  }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E0E6EB'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Uncategorized evidence  ·  oldest first'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Evidence ID"
+                }
+              },
+              "queryRef": "Uncategorized.Evidence ID",
+              "nativeQueryRef": "Evidence ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "External Evidence ID"
+                }
+              },
+              "queryRef": "Uncategorized.External Evidence ID",
+              "nativeQueryRef": "External Evidence ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Days Since Upload"
+                }
+              },
+              "queryRef": "Uncategorized.Days Since Upload",
+              "nativeQueryRef": "Days Since Upload"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Age Band"
+                }
+              },
+              "queryRef": "Uncategorized.Age Band",
+              "nativeQueryRef": "Age Band"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "Uncategorized.Status",
+              "nativeQueryRef": "Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Component"
+                }
+              },
+              "queryRef": "Uncategorized.Component",
+              "nativeQueryRef": "Component"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "AOR"
+                }
+              },
+              "queryRef": "Uncategorized.AOR",
+              "nativeQueryRef": "AOR"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Owner Badge ID"
+                }
+              },
+              "queryRef": "Uncategorized.Owner Badge ID",
+              "nativeQueryRef": "Owner Badge ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Owner First Name"
+                }
+              },
+              "queryRef": "Uncategorized.Owner First Name",
+              "nativeQueryRef": "Owner First Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Owner Last Name"
+                }
+              },
+              "queryRef": "Uncategorized.Owner Last Name",
+              "nativeQueryRef": "Owner Last Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Date Uploaded"
+                }
+              },
+              "queryRef": "Uncategorized.Date Uploaded",
+              "nativeQueryRef": "Date Uploaded"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Created Date (Record Start)"
+                }
+              },
+              "queryRef": "Uncategorized.Created Date (Record Start)",
+              "nativeQueryRef": "Created Date (Record Start)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Uncategorized"
+                    }
+                  },
+                  "Property": "Data Quality Notes"
+                }
+              },
+              "queryRef": "Uncategorized.Data Quality Notes",
+              "nativeQueryRef": "Data Quality Notes"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Uncategorized"
+                  }
+                },
+                "Property": "Days Since Upload"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#243746'"
+                    }
+                  }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "selector": {
+            "metadata": "Uncategorized.Days Since Upload"
+          },
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Uncategorized"
+                        }
+                      },
+                      "Property": "Age Band Color"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Uncategorized"
+                        }
+                      },
+                      "Property": "Age Band Font Color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "selector": {
+            "metadata": "Uncategorized.Age Band"
+          },
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Uncategorized"
+                        }
+                      },
+                      "Property": "Age Band Color"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Uncategorized"
+                        }
+                      },
+                      "Property": "Age Band Font Color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

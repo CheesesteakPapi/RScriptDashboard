@@ -1,0 +1,696 @@
+{
+  "name": "BWC Uncategorized",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"UseSampleData\", \"SharePointSiteUrl\", \"ReportFolderPath\", \"SampleSource\", \"SharePointSource\", \"ReportSource\", \"Uncategorized\", \"Snapshot\", \"RejectedRows\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "UseSampleData",
+        "kind": "m",
+        "expression": [
+          "true meta [IsParameterQuery=true, Type=\"Logical\", IsParameterQueryRequired=true]"
+        ]
+      },
+      {
+        "name": "SharePointSiteUrl",
+        "kind": "m",
+        "expression": [
+          "\"\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=false]"
+        ]
+      },
+      {
+        "name": "ReportFolderPath",
+        "kind": "m",
+        "expression": [
+          "\"Shared Documents/BWC Reporting\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+        ]
+      },
+      {
+        "name": "SampleSource",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    Payload = Json.Document(\"{\"\"Details\"\":[{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-7\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0007\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 7\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-7\"\",\"\"Created Date (Record Start)\"\":\"\"2026-07-28\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-007\"\",\"\"Days Since Upload\"\":75,\"\"Age Band\"\":\"\"Critical\"\",\"\"Age Band Order\"\":3,\"\"Age Band Color\"\":\"\"#(#)C41230\"\",\"\"Owner Groups\"\":\"\"\"\",\"\"Date Uploaded\"\":\"\"2026-07-30\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"Unassigned\"\",\"\"Component Name\"\":\"\"Unassigned\"\",\"\"AOR\"\":\"\"Unassigned\"\",\"\"Data Quality Notes\"\":\"\"\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-8\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0008\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 8\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-8\"\",\"\"Created Date (Record Start)\"\":\"\"2026-09-02\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-008\"\",\"\"Days Since Upload\"\":39,\"\"Age Band\"\":\"\"Critical\"\",\"\"Age Band Order\"\":3,\"\"Age Band Color\"\":\"\"#(#)C41230\"\",\"\"Owner Groups\"\":\"\"Legal Users\"\",\"\"Date Uploaded\"\":\"\"2026-09-04\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"Other\"\",\"\"Component Name\"\":\"\"Legal\"\",\"\"AOR\"\":\"\"Legal\"\",\"\"Data Quality Notes\"\":\"\"Unrecognized component\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-6\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0006\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 6\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-6\"\",\"\"Created Date (Record Start)\"\":\"\"2026-09-10\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Queued for Deletion\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-006\"\",\"\"Days Since Upload\"\":31,\"\"Age Band\"\":\"\"Critical\"\",\"\"Age Band Order\"\":3,\"\"Age Band Color\"\":\"\"#(#)C41230\"\",\"\"Owner Groups\"\":\"\"Office of Firearms and Tactical Programs\"\",\"\"Date Uploaded\"\":\"\"2026-09-12\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"OFTP\"\",\"\"Component Name\"\":\"\"Office of Firearms and Tactical Programs\"\",\"\"AOR\"\":\"\"Office of Firearms and Tactical Programs\"\",\"\"Data Quality Notes\"\":\"\"\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-5\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0005\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 5\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-5\"\",\"\"Created Date (Record Start)\"\":\"\"2026-09-11\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-005\"\",\"\"Days Since Upload\"\":30,\"\"Age Band\"\":\"\"Critical\"\",\"\"Age Band Order\"\":3,\"\"Age Band Color\"\":\"\"#(#)C41230\"\",\"\"Owner Groups\"\":\"\"Office of Professional Responsibility Users\"\",\"\"Date Uploaded\"\":\"\"2026-09-13\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"OPR\"\",\"\"Component Name\"\":\"\"Office of Professional Responsibility\"\",\"\"AOR\"\":\"\"Office of Professional Responsibility\"\",\"\"Data Quality Notes\"\":\"\"\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-4\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0004\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 4\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-4\"\",\"\"Created Date (Record Start)\"\":\"\"2026-09-12\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-004\"\",\"\"Days Since Upload\"\":29,\"\"Age Band\"\":\"\"Moderate\"\",\"\"Age Band Order\"\":2,\"\"Age Band Color\"\":\"\"#(#)FFA500\"\",\"\"Owner Groups\"\":\"\"FOIA Users\"\",\"\"Date Uploaded\"\":\"\"2026-09-14\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"FOIA\"\",\"\"Component Name\"\":\"\"FOIA\"\",\"\"AOR\"\":\"\"FOIA\"\",\"\"Data Quality Notes\"\":\"\"\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-3\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0003\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 3\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-3\"\",\"\"Created Date (Record Start)\"\":\"\"2026-09-26\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-003\"\",\"\"Days Since Upload\"\":15,\"\"Age Band\"\":\"\"Moderate\"\",\"\"Age Band Order\"\":2,\"\"Age Band Color\"\":\"\"#(#)FFA500\"\",\"\"Owner Groups\"\":\"\"FLETC Users\"\",\"\"Date Uploaded\"\":\"\"2026-09-28\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"FLETC\"\",\"\"Component Name\"\":\"\"FLETC\"\",\"\"AOR\"\":\"\"FLETC\"\",\"\"Data Quality Notes\"\":\"\"\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-2\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0002\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 2\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-2\"\",\"\"Created Date (Record Start)\"\":\"\"2026-09-27\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-002\"\",\"\"Days Since Upload\"\":14,\"\"Age Band\"\":\"\"Normal\"\",\"\"Age Band Order\"\":1,\"\"Age Band Color\"\":\"\"#(#)FFFF00\"\",\"\"Owner Groups\"\":\"\"ERO Miami 2nd Line Sup\"\",\"\"Date Uploaded\"\":\"\"2026-09-29\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"ERO\"\",\"\"Component Name\"\":\"\"ERO Miami\"\",\"\"AOR\"\":\"\"AOR Miami\"\",\"\"Data Quality Notes\"\":\"\"\"\"},{\"\"Evidence Serial Number\"\":\"\"DEMO-EVIDENCE-1\"\",\"\"Evidence Type\"\":\"\"Video\"\",\"\"Owner Badge ID\"\":\"\"0001\"\",\"\"Owner First Name\"\":\"\"Synthetic\"\",\"\"Owner Last Name\"\":\"\"Person 1\"\",\"\"Owner Role\"\":\"\"Demo Officer\"\",\"\"Serial Number\"\":\"\"DEMO-DEVICE-1\"\",\"\"Created Date (Record Start)\"\":\"\"2026-10-11\"\",\"\"External Evidence ID\"\":\"\"\"\",\"\"Status\"\":\"\"Active\"\",\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Evidence ID\"\":\"\"DEMO-001\"\",\"\"Days Since Upload\"\":0,\"\"Age Band\"\":\"\"Normal\"\",\"\"Age Band Order\"\":1,\"\"Age Band Color\"\":\"\"#(#)FFFF00\"\",\"\"Owner Groups\"\":\"\"HSI Baltimore Users, Admin\"\",\"\"Date Uploaded\"\":\"\"2026-10-13\"\",\"\"Days Between Create and Upload Date\"\":2,\"\"Component\"\":\"\"HSI\"\",\"\"Component Name\"\":\"\"HSI Baltimore\"\",\"\"AOR\"\":\"\"AOR Baltimore\"\",\"\"Data Quality Notes\"\":\"\"\"\"}],\"\"Snapshot\"\":[{\"\"Run ID\"\":\"\"synthetic_template_20261013\"\",\"\"Snapshot Date\"\":\"\"2026-10-13\"\",\"\"Fiscal Year\"\":2027,\"\"Total Uncategorized Items\"\":8,\"\"Normal Items\"\":2,\"\"Moderate Items\"\":2,\"\"Critical Items\"\":4,\"\"Average Days Since Upload\"\":29.125,\"\"Oldest Days Since Upload\"\":75,\"\"Input Rows\"\":14,\"\"Blank Rows Removed\"\":1,\"\"Duplicate Rows Removed\"\":1,\"\"Excluded Status Rows\"\":1,\"\"Categorized Rows\"\":1,\"\"Rejected Rows\"\":3,\"\"Sample Data\"\":true,\"\"Source Data Date\"\":\"\"2026-10-13\"\",\"\"Source Report\"\":\"\"Synthetic CSV fixture\"\",\"\"Creation From Date\"\":\"\"2024-03-11\"\",\"\"Creation To Date\"\":\"\"2026-10-13\"\",\"\"Refresh Mode\"\":\"\"Synthetic preview\"\",\"\"Previous Run ID\"\":\"\"\"\",\"\"Updated From UTC\"\":\"\"\"\",\"\"Updated Through UTC\"\":\"\"\"\",\"\"State Rows\"\":0,\"\"Created Rows Received\"\":0,\"\"Updated Rows Received\"\":0,\"\"Out of Scope Updates\"\":0}],\"\"Rejected\"\":[{\"\"Source Row\"\":\"\"12\"\",\"\"Evidence ID\"\":\"\"DEMO-FUTURE\"\",\"\"Date Uploaded\"\":\"\"2026-10-14\"\",\"\"Reason\"\":\"\"Upload date is after snapshot date\"\"},{\"\"Source Row\"\":\"\"13\"\",\"\"Evidence ID\"\":\"\"DEMO-INVALID\"\",\"\"Date Uploaded\"\":\"\"not-a-date\"\",\"\"Reason\"\":\"\"Missing or invalid upload date\"\"},{\"\"Source Row\"\":\"\"14\"\",\"\"Evidence ID\"\":\"\"\"\",\"\"Date Uploaded\"\":\"\"2026-10-13T08:00:00Z\"\",\"\"Reason\"\":\"\"Missing evidence ID\"\"}]}\"),",
+          "    RawDetails = Table.FromRecords(Payload[Details]),",
+          "    Details = Table.TransformColumnTypes(Table.ReplaceValue(RawDetails, \"\", null,",
+          "        Replacer.ReplaceValue, {\"Snapshot Date\", \"Date Uploaded\", \"Created Date (Record Start)\", \"Days Between Create and Upload Date\"}),",
+          "        {{\"Snapshot Date\", type date}, {\"Date Uploaded\", type date}, {\"Created Date (Record Start)\", type date},",
+          "         {\"Fiscal Year\", Int64.Type}, {\"Days Since Upload\", Int64.Type}, {\"Age Band Order\", Int64.Type},",
+          "         {\"Days Between Create and Upload Date\", Int64.Type}}),",
+          "    Snapshot = Table.ReplaceValue(Table.FromRecords(Payload[Snapshot]), \"\", null, Replacer.ReplaceValue,",
+          "        {\"Source Data Date\", \"Creation From Date\", \"Creation To Date\"}),",
+          "    Rejected = Table.FromRecords(Payload[Rejected])",
+          "in [Details=Details, Snapshot=Snapshot, Rejected=Rejected]"
+        ]
+      },
+      {
+        "name": "SharePointSource",
+        "kind": "m",
+        "expression": [
+          "// Preferred Excel-cloud route. Create this staging query as ReportSource; disable load.",
+          "// Use this INSTEAD OF the raw CSV ReportSource.pq, with the same downstream queries.",
+          "let",
+          "    SiteUrl = Text.TrimEnd(SharePointSiteUrl, {\"/\"}),",
+          "    ReportFolderUrl = SiteUrl & \"/\" & Text.Trim(ReportFolderPath, {\"/\"}) & \"/\",",
+          "    Files = if SiteUrl=\"\" then error \"Set SharePointSiteUrl before disabling sample data\"",
+          "        else SharePoint.Files(SiteUrl, [ApiVersion=15]),",
+          "    Matches = Table.SelectRows(Files, each [Folder Path]=ReportFolderUrl & \"latest/\"",
+          "        and [Name]=\"Uncategorized Report.xlsx\"),",
+          "    Binary = if Table.RowCount(Matches)<>1 then error \"Expected one completed report workbook\"",
+          "        else Binary.Buffer(Matches{0}[Content]),",
+          "    Book = Excel.Workbook(Binary, null, true),",
+          "    ReadTable = (name as text) as table =>",
+          "        let matches = Table.SelectRows(Book, each [Kind]=\"Table\" and [Item]=name)",
+          "        in if Table.RowCount(matches)<>1 then error \"Missing report table\" else matches{0}[Data],",
+          "    RawDetails = ReadTable(\"Uncategorized\"),",
+          "    // Excel may materialize a blank row in an otherwise empty named table.",
+          "    ValidDetails = Table.SelectRows(RawDetails, each [Evidence ID]<>null and Text.Trim(Text.From([Evidence ID]))<>\"\"),",
+          "    Dates = {\"Snapshot Date\", \"Created Date (Record Start)\", \"Date Uploaded\"},",
+          "    Integers = {\"Fiscal Year\", \"Days Since Upload\", \"Age Band Order\", \"Days Between Create and Upload Date\"},",
+          "    Types = List.Transform(Table.ColumnNames(ValidDetails), each {_,",
+          "        if List.Contains(Dates, _) then type date else if List.Contains(Integers, _) then Int64.Type else type text}),",
+          "    NullBlanks = Table.ReplaceValue(ValidDetails, \"\", null, Replacer.ReplaceValue, Dates & Integers),",
+          "    Details = Table.TransformColumnTypes(NullBlanks, Types),",
+          "    SnapshotRaw = ReadTable(\"Snapshot\"),",
+          "    SnapshotDateColumns = List.Intersect({Table.ColumnNames(SnapshotRaw),",
+          "        {\"Source Data Date\", \"Creation From Date\", \"Creation To Date\"}}),",
+          "    Snapshot = Table.ReplaceValue(SnapshotRaw, \"\", null, Replacer.ReplaceValue, SnapshotDateColumns),",
+          "    RejectedRaw = ReadTable(\"DataQuality\"),",
+          "    Rejected = Table.SelectRows(RejectedRaw, each [Reason]<>null and Text.Trim(Text.From([Reason]))<>\"\")",
+          "in",
+          "    [Details=Details, Snapshot=Snapshot, Rejected=Rejected]"
+        ]
+      },
+      {
+        "name": "ReportSource",
+        "kind": "m",
+        "expression": [
+          "if UseSampleData then SampleSource else SharePointSource"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Uncategorized",
+        "columns": [
+          {
+            "name": "Run ID",
+            "dataType": "string",
+            "sourceColumn": "Run ID",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Snapshot Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Snapshot Date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Fiscal Year",
+            "dataType": "int64",
+            "sourceColumn": "Fiscal Year",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Evidence ID",
+            "dataType": "string",
+            "sourceColumn": "Evidence ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Days Since Upload",
+            "dataType": "int64",
+            "sourceColumn": "Days Since Upload",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Age Band",
+            "dataType": "string",
+            "sourceColumn": "Age Band",
+            "summarizeBy": "none",
+            "sortByColumn": "Age Band Order"
+          },
+          {
+            "name": "Age Band Order",
+            "dataType": "int64",
+            "sourceColumn": "Age Band Order",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Age Band Color",
+            "dataType": "string",
+            "sourceColumn": "Age Band Color",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Evidence Serial Number",
+            "dataType": "string",
+            "sourceColumn": "Evidence Serial Number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Evidence Type",
+            "dataType": "string",
+            "sourceColumn": "Evidence Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Owner Badge ID",
+            "dataType": "string",
+            "sourceColumn": "Owner Badge ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Owner First Name",
+            "dataType": "string",
+            "sourceColumn": "Owner First Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Owner Last Name",
+            "dataType": "string",
+            "sourceColumn": "Owner Last Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Owner Role",
+            "dataType": "string",
+            "sourceColumn": "Owner Role",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Owner Groups",
+            "dataType": "string",
+            "sourceColumn": "Owner Groups",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Serial Number",
+            "dataType": "string",
+            "sourceColumn": "Serial Number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Created Date (Record Start)",
+            "dataType": "dateTime",
+            "sourceColumn": "Created Date (Record Start)",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Date Uploaded",
+            "dataType": "dateTime",
+            "sourceColumn": "Date Uploaded",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Days Between Create and Upload Date",
+            "dataType": "int64",
+            "sourceColumn": "Days Between Create and Upload Date",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Component",
+            "dataType": "string",
+            "sourceColumn": "Component",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Component Name",
+            "dataType": "string",
+            "sourceColumn": "Component Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AOR",
+            "dataType": "string",
+            "sourceColumn": "AOR",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Quality Notes",
+            "dataType": "string",
+            "sourceColumn": "Data Quality Notes",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "External Evidence ID",
+            "dataType": "string",
+            "sourceColumn": "External Evidence ID",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Uncategorized",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "// Loaded entity/table: Uncategorized.",
+                "let Source = ReportSource in Source[Details]"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Uncategorized Items",
+            "expression": [
+              "COALESCE(COUNTA('Uncategorized'[Evidence ID]), 0)"
+            ],
+            "displayFolder": "Backlog",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Critical Items",
+            "expression": [
+              "COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = \"Critical\")), 0)"
+            ],
+            "displayFolder": "Backlog",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Moderate Items",
+            "expression": [
+              "COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = \"Moderate\")), 0)"
+            ],
+            "displayFolder": "Backlog",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Normal Items",
+            "expression": [
+              "COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = \"Normal\")), 0)"
+            ],
+            "displayFolder": "Backlog",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Oldest Days Since Upload",
+            "expression": [
+              "COALESCE(MAX('Uncategorized'[Days Since Upload]), 0)"
+            ],
+            "displayFolder": "Backlog",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Average Days Since Upload",
+            "expression": [
+              "AVERAGE('Uncategorized'[Days Since Upload])"
+            ],
+            "displayFolder": "Backlog",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Snapshot Date",
+            "expression": [
+              "MAX('Snapshot'[Snapshot Date])"
+            ],
+            "displayFolder": "Status",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Creation From Date",
+            "expression": [
+              "MAX('Snapshot'[Creation From Date])"
+            ],
+            "displayFolder": "Status",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Creation To Date",
+            "expression": [
+              "MAX('Snapshot'[Creation To Date])"
+            ],
+            "displayFolder": "Status",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Rejected Source Rows",
+            "expression": [
+              "COALESCE(SUM('Snapshot'[Rejected Rows]), 0)"
+            ],
+            "displayFolder": "Status",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Data Mode",
+            "expression": [
+              "SWITCH(TRUE(), COUNTROWS('Snapshot') <> 1, \"SOURCE NOT READY\",",
+              "SELECTEDVALUE('Snapshot'[Sample Data]) = TRUE(), \"SYNTHETIC DEMO DATA\",",
+              "ISBLANK(SELECTEDVALUE('Snapshot'[Sample Data])), \"SOURCE MODE UNKNOWN\", \"PRODUCTION DATA\")"
+            ],
+            "displayFolder": "Status"
+          },
+          {
+            "name": "Age Band Color",
+            "expression": [
+              "SELECTEDVALUE('Uncategorized'[Age Band Color], \"#243746\")"
+            ],
+            "displayFolder": "Backlog"
+          },
+          {
+            "name": "Updated Through UTC",
+            "expression": [
+              "SELECTEDVALUE('Snapshot'[Updated Through UTC])"
+            ],
+            "displayFolder": "Status"
+          },
+          {
+            "name": "Report Subtitle",
+            "displayFolder": "Status",
+            "expression": [
+              "\"Snapshot \" & FORMAT([Snapshot Date], \"yyyy-MM-dd\") & \"  |  Recording scope \" &",
+              "FORMAT([Creation From Date], \"yyyy-MM-dd\") & \" to \" & FORMAT([Creation To Date], \"yyyy-MM-dd\")"
+            ]
+          },
+          {
+            "name": "Updated Window Label",
+            "displayFolder": "Status",
+            "expression": [
+              "VAR Stamp = [Updated Through UTC]",
+              "RETURN IF(ISBLANK(Stamp) || Stamp = \"\", \"API update watermark not available\", \"Updated through \" & Stamp & \" UTC\")"
+            ]
+          },
+          {
+            "name": "Rejected Records",
+            "expression": "COALESCE(COUNTROWS('RejectedRows'), 0)",
+            "formatString": "#,0",
+            "displayFolder": "Quality"
+          },
+          {
+            "name": "Empty Backlog Message",
+            "expression": "IF([Total Uncategorized Items] = 0, \"No uncategorized evidence in the selected scope\", \"\")",
+            "displayFolder": "Status"
+          },
+          {
+            "name": "Age Band Font Color",
+            "expression": "IF(SELECTEDVALUE('Uncategorized'[Age Band]) = \"Critical\", \"#FFFFFF\", \"#243746\")",
+            "displayFolder": "Formatting"
+          }
+        ]
+      },
+      {
+        "name": "Snapshot",
+        "description": "Disconnected refresh metadata; do not relate to the evidence fact table.",
+        "columns": [
+          {
+            "name": "Run ID",
+            "dataType": "string",
+            "sourceColumn": "Run ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Snapshot Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Snapshot Date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Source Data Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Source Data Date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Source Report",
+            "dataType": "string",
+            "sourceColumn": "Source Report",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Creation From Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Creation From Date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Creation To Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Creation To Date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Refresh Mode",
+            "dataType": "string",
+            "sourceColumn": "Refresh Mode",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Previous Run ID",
+            "dataType": "string",
+            "sourceColumn": "Previous Run ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Updated From UTC",
+            "dataType": "string",
+            "sourceColumn": "Updated From UTC",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Updated Through UTC",
+            "dataType": "string",
+            "sourceColumn": "Updated Through UTC",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "State Rows",
+            "dataType": "int64",
+            "sourceColumn": "State Rows",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Created Rows Received",
+            "dataType": "int64",
+            "sourceColumn": "Created Rows Received",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Updated Rows Received",
+            "dataType": "int64",
+            "sourceColumn": "Updated Rows Received",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Out of Scope Updates",
+            "dataType": "int64",
+            "sourceColumn": "Out of Scope Updates",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Fiscal Year",
+            "dataType": "int64",
+            "sourceColumn": "Fiscal Year",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Total Uncategorized Items",
+            "dataType": "int64",
+            "sourceColumn": "Total Uncategorized Items",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Normal Items",
+            "dataType": "int64",
+            "sourceColumn": "Normal Items",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Moderate Items",
+            "dataType": "int64",
+            "sourceColumn": "Moderate Items",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Critical Items",
+            "dataType": "int64",
+            "sourceColumn": "Critical Items",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Average Days Since Upload",
+            "dataType": "double",
+            "sourceColumn": "Average Days Since Upload",
+            "summarizeBy": "none",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Oldest Days Since Upload",
+            "dataType": "int64",
+            "sourceColumn": "Oldest Days Since Upload",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Input Rows",
+            "dataType": "int64",
+            "sourceColumn": "Input Rows",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Blank Rows Removed",
+            "dataType": "int64",
+            "sourceColumn": "Blank Rows Removed",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Duplicate Rows Removed",
+            "dataType": "int64",
+            "sourceColumn": "Duplicate Rows Removed",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Excluded Status Rows",
+            "dataType": "int64",
+            "sourceColumn": "Excluded Status Rows",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Categorized Rows",
+            "dataType": "int64",
+            "sourceColumn": "Categorized Rows",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Rejected Rows",
+            "dataType": "int64",
+            "sourceColumn": "Rejected Rows",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Sample Data",
+            "dataType": "boolean",
+            "sourceColumn": "Sample Data",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Snapshot",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "// Loaded entity/table: Snapshot. Keep this one-row table even when details are empty.",
+                "let",
+                "    Source = ReportSource[Snapshot],",
+                "    Typed = Table.TransformColumnTypes(Source, {",
+                "        {\"Run ID\", type text}, {\"Snapshot Date\", type date}, {\"Source Data Date\", type date},",
+                "        {\"Source Report\", type text}, {\"Creation From Date\", type date}, {\"Creation To Date\", type date},",
+                "        {\"Refresh Mode\", type text}, {\"Previous Run ID\", type text},",
+                "        {\"Updated From UTC\", type text}, {\"Updated Through UTC\", type text},",
+                "        {\"State Rows\", Int64.Type}, {\"Created Rows Received\", Int64.Type},",
+                "        {\"Updated Rows Received\", Int64.Type}, {\"Out of Scope Updates\", Int64.Type},",
+                "        {\"Fiscal Year\", Int64.Type}, {\"Total Uncategorized Items\", Int64.Type},",
+                "        {\"Normal Items\", Int64.Type}, {\"Moderate Items\", Int64.Type}, {\"Critical Items\", Int64.Type},",
+                "        {\"Average Days Since Upload\", type number}, {\"Oldest Days Since Upload\", Int64.Type},",
+                "        {\"Input Rows\", Int64.Type}, {\"Blank Rows Removed\", Int64.Type},",
+                "        {\"Duplicate Rows Removed\", Int64.Type}, {\"Excluded Status Rows\", Int64.Type},",
+                "        {\"Categorized Rows\", Int64.Type}, {\"Rejected Rows\", Int64.Type}, {\"Sample Data\", type logical}",
+                "    }, [Culture=\"en-US\", MissingField=MissingField.UseNull])",
+                "in Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "RejectedRows",
+        "description": "Source exclusions for the report's authorized remediation audience.",
+        "columns": [
+          {
+            "name": "Source Row",
+            "dataType": "int64",
+            "sourceColumn": "Source Row",
+            "summarizeBy": "none",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Evidence ID",
+            "dataType": "string",
+            "sourceColumn": "Evidence ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Date Uploaded",
+            "dataType": "string",
+            "sourceColumn": "Date Uploaded",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reason",
+            "dataType": "string",
+            "sourceColumn": "Reason",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "RejectedRows",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "// Loaded entity/table: RejectedRows. Keep restricted to remediation users.",
+                "let Source = ReportSource in Source[Rejected]"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

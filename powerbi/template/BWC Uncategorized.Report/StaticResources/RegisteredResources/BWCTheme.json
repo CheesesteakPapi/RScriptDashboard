@@ -1,0 +1,28 @@
+{
+  "name": "BWC reporting",
+  "dataColors": [
+    "#245C82",
+    "#C41230",
+    "#D98500",
+    "#6B7480",
+    "#499898",
+    "#7B6299"
+  ],
+  "background": "#F4F7FA",
+  "foreground": "#243746",
+  "tableAccent": "#245C82",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI",
+      "fontSize": 13
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11
+    },
+    "callout": {
+      "fontFace": "Segoe UI",
+      "fontSize": 36
+    }
+  }
+}

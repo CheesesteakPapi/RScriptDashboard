@@ -18,6 +18,7 @@ Included files:
 - [Office Script](automation/ProcessEvidence.office.ts), run by Power Automate in Excel Online.
 - [Blank workbook template](automation/report-template.xlsx) for backfill, plus [ReadRefreshState](automation/ReadRefreshState.office.ts) to read the previous watermark from an incremental working copy.
 - [Power Query files](powerbi/) and [DAX measures](powerbi/measures.dax) for report authoring.
+- [Editable Power BI project template](powerbi/template/README.md), with Overview, Remediation, and Data Quality pages, embedded synthetic data, and SharePoint parameters. Open the .pbip in Desktop and save as .pbix when needed.
 - [Axon response schema and flow expression fragments](automation/), plus incomplete-page protection in the Office Script.
 - A Python reference converter and entirely synthetic source data for local verification.
 

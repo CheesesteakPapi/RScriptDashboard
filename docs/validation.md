@@ -11,6 +11,7 @@ Prepared on October 13, 2026. Production architecture: Power Automate cloud flow
 | Incremental synthetic fixtures | Initial/backfill and subsequent incremental runs retain all state and produce 3 current items after changes: 1 normal, 1 moderate, 1 critical. |
 | API schemas | All three synthetic JSON inputs validate; both Power Automate Parse JSON schemas are valid Draft 4. |
 | Power Query files | All 6 parsed successfully with Microsoft's Power Query parser 2.0.0. This is syntax verification, not M execution. |
+| Editable Power BI project | 3 pages, 39 visuals, 3 tables, 18 measures; all visual/model references, canvas bounds and embedded sample counts pass. All 47 project/report documents validate against Microsoft schemas; the theme validates against the August 2026 schema. All 9 template M expressions/partitions parse. |
 | CSV/Excel reference run | Six CSVs, a seven-sheet Excel workbook, and a completed-run manifest generated. The workbook reopened with 8 detail records. |
 | Manifest example | Validated against the JSON schema. |
 | Python dependency installation | Isolated environment installed openpyxl 3.1.5 and et_xmlfile 2.0.0; pip check passed. |

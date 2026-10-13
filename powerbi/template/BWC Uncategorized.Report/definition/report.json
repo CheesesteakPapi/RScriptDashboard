@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "BWCTheme",
+      "type": "RegisteredResources",
+      "reportVersionAtImport": {
+        "visual": "2.4.0",
+        "page": "2.0.0",
+        "report": "3.0.0"
+      }
+    }
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "BWCTheme",
+          "path": "BWCTheme.json",
+          "type": "CustomTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "defaultFilterActionIsDataFilter": true,
+    "useStylableVisualContainerHeader": true,
+    "pagesPosition": "Bottom"
+  }
+}

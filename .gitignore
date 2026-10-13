@@ -6,3 +6,4 @@ output/
 local.settings.json
 config/settings.json
 .env
+.pbi/

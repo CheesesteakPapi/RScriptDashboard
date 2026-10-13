@@ -25,6 +25,25 @@ try {
       process.exitCode = 1;
     }
   }
+  const modelPath = path.join(folder, 'template', 'BWC Uncategorized.SemanticModel', 'model.bim');
+  if (fs.existsSync(modelPath)) {
+    const model = JSON.parse(fs.readFileSync(modelPath, 'utf8')).model;
+    const expressions = model.expressions.map(item => ({ name: item.name, source: item.expression }));
+    for (const table of model.tables) {
+      for (const partition of table.partitions) {
+        if (partition.source.type === 'm') expressions.push({ name: `${table.name} partition`, source: partition.source.expression });
+      }
+    }
+    for (const item of expressions) {
+      const source = Array.isArray(item.source) ? item.source.join('\n') : item.source;
+      const result = await parser.TaskUtils.tryLexParse(parser.DefaultSettings, source);
+      if (result.resultKind === 'Ok') console.log(`PASS: template ${item.name}`);
+      else {
+        console.error(`FAIL: template ${item.name}: ${result.error.message}`);
+        process.exitCode = 1;
+      }
+    }
+  }
 })().catch(error => {
   console.error(error.message);
   process.exitCode = 1;

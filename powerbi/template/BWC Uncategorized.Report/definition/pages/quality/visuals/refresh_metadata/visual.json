@@ -1,0 +1,300 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "refresh_metadata",
+  "position": {
+    "x": 504,
+    "y": 248,
+    "z": 7000,
+    "width": 752,
+    "height": 240,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Published source metadata'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#243746'"
+                    }
+                  }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E0E6EB'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Published source metadata'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Run ID"
+                }
+              },
+              "queryRef": "Snapshot.Run ID",
+              "nativeQueryRef": "Run ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Source Report"
+                }
+              },
+              "queryRef": "Snapshot.Source Report",
+              "nativeQueryRef": "Source Report"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Refresh Mode"
+                }
+              },
+              "queryRef": "Snapshot.Refresh Mode",
+              "nativeQueryRef": "Refresh Mode"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Creation From Date"
+                }
+              },
+              "queryRef": "Snapshot.Creation From Date",
+              "nativeQueryRef": "Creation From Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Creation To Date"
+                }
+              },
+              "queryRef": "Snapshot.Creation To Date",
+              "nativeQueryRef": "Creation To Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Updated Through UTC"
+                }
+              },
+              "queryRef": "Snapshot.Updated Through UTC",
+              "nativeQueryRef": "Updated Through UTC"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "State Rows"
+                }
+              },
+              "queryRef": "Snapshot.State Rows",
+              "nativeQueryRef": "State Rows"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Created Rows Received"
+                }
+              },
+              "queryRef": "Snapshot.Created Rows Received",
+              "nativeQueryRef": "Created Rows Received"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Snapshot"
+                    }
+                  },
+                  "Property": "Updated Rows Received"
+                }
+              },
+              "queryRef": "Snapshot.Updated Rows Received",
+              "nativeQueryRef": "Updated Rows Received"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

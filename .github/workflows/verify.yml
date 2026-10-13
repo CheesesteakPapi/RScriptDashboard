@@ -24,5 +24,7 @@ jobs:
         run: npm install --prefix "$RUNNER_TEMP/bwc-tools" --no-audit --no-fund @microsoft/powerquery-parser@2.0.0 typescript@5.9.3
       - name: Parse Power Query files
         run: node scripts/validate-powerquery.cjs "$RUNNER_TEMP/bwc-tools/node_modules/@microsoft/powerquery-parser"
+      - name: Validate Power BI template bindings and sample data
+        run: python scripts/validate-powerbi-template.py
       - name: Exercise the Office Script with a workbook test double
         run: node scripts/test-office-script.cjs "$RUNNER_TEMP/bwc-tools/node_modules/typescript"
