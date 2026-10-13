@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Completed Evidence.com API export published to SharePoint",
+  "type": "object",
+  "required": ["schema_version", "run_id", "snapshot_date", "source_data_date", "sample_data", "raw_relative_folder"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$", "minLength": 1},
+    "snapshot_date": {"type": "string", "format": "date"},
+    "source_data_date": {"type": ["string", "null"], "format": "date"},
+    "sample_data": {"type": "boolean"},
+    "raw_relative_folder": {"type": "string", "pattern": "^raw/[0-9]{4}-[0-9]{2}-[0-9]{2}/[A-Za-z0-9_-]+/$"}
+  }
+}

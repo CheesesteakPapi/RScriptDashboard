@@ -1,0 +1,26 @@
+// Create each measure separately in the semantic model.
+// Uncategorized has one row per valid, eligible, uncategorized Evidence ID.
+// Snapshot is a disconnected one-row refresh/status table, not another fact table.
+
+Total Uncategorized Items = COALESCE(COUNTA('Uncategorized'[Evidence ID]), 0)
+
+Critical Items =
+    COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = "Critical")), 0)
+
+Moderate Items =
+    COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = "Moderate")), 0)
+
+Normal Items =
+    COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = "Normal")), 0)
+
+Oldest Days Since Upload = COALESCE(MAX('Uncategorized'[Days Since Upload]), 0)
+
+Average Days Since Upload = AVERAGE('Uncategorized'[Days Since Upload])
+
+Snapshot Date = MAX('Snapshot'[Snapshot Date])
+
+Rejected Source Rows = COALESCE(SUM('Snapshot'[Rejected Rows]), 0)
+
+Data Mode = IF(SELECTEDVALUE('Snapshot'[Sample Data], FALSE()), "SYNTHETIC DEMO DATA", "Production data")
+
+Age Band Color = SELECTEDVALUE('Uncategorized'[Age Band Color], "#243746")

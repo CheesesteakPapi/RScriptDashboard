@@ -1,0 +1,16 @@
+﻿Evidence ID,Categories,Status,Date Uploaded,Owner Groups,Evidence Serial Number,Evidence Type,Owner Badge ID,Owner First Name,Owner Last Name,Owner Role,Serial Number,Created Date (Record Start)
+DEMO-001,,Active,2026-10-13T08:00:00Z,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+DEMO-002,,Active,2026-09-29T08:00:00Z,ERO Miami 2nd Line Sup,DEMO-EVIDENCE-2,Video,0002,Synthetic,Person 2,Demo Officer,DEMO-DEVICE-2,2026-09-27T07:00:00Z
+DEMO-003,,Active,2026-09-28T08:00:00Z,FLETC Users,DEMO-EVIDENCE-3,Video,0003,Synthetic,Person 3,Demo Officer,DEMO-DEVICE-3,2026-09-26T07:00:00Z
+DEMO-004,,Active,2026-09-14T08:00:00Z,FOIA Users,DEMO-EVIDENCE-4,Video,0004,Synthetic,Person 4,Demo Officer,DEMO-DEVICE-4,2026-09-12T07:00:00Z
+DEMO-005,,Active,2026-09-13T08:00:00Z,Office of Professional Responsibility Users,DEMO-EVIDENCE-5,Video,0005,Synthetic,Person 5,Demo Officer,DEMO-DEVICE-5,2026-09-11T07:00:00Z
+DEMO-006,,Queued for Deletion,2026-09-12T08:00:00Z,Office of Firearms and Tactical Programs,DEMO-EVIDENCE-6,Video,0006,Synthetic,Person 6,Demo Officer,DEMO-DEVICE-6,2026-09-10T07:00:00Z
+DEMO-007,,Active,2026-07-30T08:00:00Z,,DEMO-EVIDENCE-7,Video,0007,Synthetic,Person 7,Demo Officer,DEMO-DEVICE-7,2026-07-28T07:00:00Z
+DEMO-008,,Active,2026-09-04T08:00:00Z,Legal Users,DEMO-EVIDENCE-8,Video,0008,Synthetic,Person 8,Demo Officer,DEMO-DEVICE-8,2026-09-02T07:00:00Z
+DEMO-CATEGORIZED,Case evidence,Active,2026-10-13T08:00:00Z,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+DEMO-DELETED,,Deleted,2026-10-13T08:00:00Z,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+DEMO-FUTURE,,Active,2026-10-14,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+DEMO-INVALID,,Active,not-a-date,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+,,Active,2026-10-13T08:00:00Z,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+DEMO-001,,Active,2026-10-13T08:00:00Z,"HSI Baltimore Users, Admin",DEMO-EVIDENCE-1,Video,0001,Synthetic,Person 1,Demo Officer,DEMO-DEVICE-1,2026-10-11T07:00:00Z
+,,,,,,,,,,,,

@@ -1,0 +1,28 @@
+name: Verify reporting MVP
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Python verification dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Test report rules and exports
+        run: python -m unittest discover -s tests -v
+      - name: Install Microsoft M parser and TypeScript
+        run: npm install --prefix "$RUNNER_TEMP/bwc-tools" --no-audit --no-fund @microsoft/powerquery-parser@2.0.0 typescript@5.9.3
+      - name: Parse Power Query files
+        run: node scripts/validate-powerquery.cjs "$RUNNER_TEMP/bwc-tools/node_modules/@microsoft/powerquery-parser"
+      - name: Exercise the Office Script with a workbook test double
+        run: node scripts/test-office-script.cjs "$RUNNER_TEMP/bwc-tools/node_modules/typescript"
