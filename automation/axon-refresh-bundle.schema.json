@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Axon backfill or incremental refresh envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mode",
+    "previous_run_id",
+    "creation_from_date",
+    "creation_to_date",
+    "created",
+    "updated"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "mode": {
+      "enum": [
+        "backfill",
+        "incremental"
+      ]
+    },
+    "previous_run_id": {
+      "type": "string"
+    },
+    "creation_from_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "creation_to_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "sample_data": {
+      "type": "boolean"
+    },
+    "created": {
+      "$ref": "axon-page-bundle.schema.json"
+    },
+    "updated": {
+      "$ref": "axon-updated-page-bundle.schema.json"
+    }
+  }
+}

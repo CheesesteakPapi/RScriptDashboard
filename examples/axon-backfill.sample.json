@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "mode": "backfill",
+  "previous_run_id": "",
+  "creation_from_date": "2024-03-11",
+  "creation_to_date": "2026-10-13",
+  "sample_data": true,
+  "created": {
+    "schema_version": 1,
+    "report_type": "EvidenceCreated",
+    "from_date": "2024-03-11",
+    "to_date": "2026-10-13",
+    "page_size": 50,
+    "pages": [
+      {
+        "page_offset": 0,
+        "data": [
+          {
+            "evidenceId": "categorize",
+            "status": "Active",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2026-08-29T12:00:00Z",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          },
+          {
+            "evidenceId": "delete",
+            "status": "Active",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2026-08-29T12:00:00Z",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          },
+          {
+            "evidenceId": "aging",
+            "status": "Active",
+            "dateUploaded": "2026-09-29",
+            "dateRecordStart": "2026-09-28",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          },
+          {
+            "evidenceId": "reopen",
+            "status": "Active",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2026-08-29T12:00:00Z",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": [
+              "case"
+            ]
+          }
+        ]
+      },
+      {
+        "page_offset": 1,
+        "data": []
+      }
+    ]
+  },
+  "updated": {
+    "schema_version": 1,
+    "report_type": "EvidenceUpdated",
+    "updated_from_datetime": "2026-10-13T09:00:00",
+    "updated_to_datetime": "2026-10-13T10:00:00",
+    "page_size": 50,
+    "pages": [
+      {
+        "page_offset": 0,
+        "data": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Axon EvidenceUpdated successful response; suitable for Power Automate Parse JSON",
+  "type": "object",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": [
+          "evidenceId",
+          "status",
+          "dateUploaded",
+          "ownerGroups",
+          "categories",
+          "dateRecordStart"
+        ],
+        "properties": {
+          "evidenceId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dateUploaded": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ownerGroups": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "categories": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object",
+              "required": [
+                "category"
+              ],
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dateModified": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "idExternal": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidenceType": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ownerBadgeId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ownerFirstName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ownerLastName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ownerRole": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "serialNumber": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dateRecordStart": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

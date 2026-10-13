@@ -1,10 +1,52 @@
 /** Run in Excel Online through Power Automate's Run script action.
- * Run against a NEW COPY of report-template.xlsx; publish only after success.
+ * Run against a NEW COPY of the template (backfill) or latest workbook (incremental).
+ * Publish only after success; the working copy carries its own state and watermark.
  * No network calls, R runtime, desktop process, or embedded credentials.
  */
 type CellValue = string | number | boolean;
 interface DataRow { [key: string]: CellValue; }
 interface SourceRow { [key: string]: string; }
+interface AxonRecord {
+  evidenceId: string | null;
+  status: string | null;
+  dateUploaded: string | null;
+  ownerGroups: string[] | null;
+  categories: (string | { category: string; dateModified?: string | null })[] | null;
+  idExternal?: string | null;
+  evidenceType?: string | null;
+  ownerBadgeId?: string | null;
+  ownerFirstName?: string | null;
+  ownerLastName?: string | null;
+  ownerRole?: string | null;
+  serialNumber?: string | null;
+  dateRecordStart?: string | null;
+}
+interface AxonPage { page_offset: number; data: AxonRecord[]; }
+interface AxonBundle {
+  schema_version: number;
+  report_type: string;
+  from_date?: string;
+  to_date?: string;
+  updated_from_datetime?: string;
+  updated_to_datetime?: string;
+  page_size: number;
+  sample_data?: boolean;
+  pages: AxonPage[];
+}
+interface AxonRefresh {
+  schema_version: number;
+  mode: string;
+  previous_run_id: string;
+  creation_from_date: string;
+  creation_to_date: string;
+  created: AxonBundle;
+  updated: AxonBundle;
+  sample_data?: boolean;
+}
+interface ReconciledState { rows: SourceRow[]; metadata: DataRow; }
+const axonFields = ["Evidence ID", "Categories", "Status", "Date Uploaded", "Owner Groups",
+  "Evidence Serial Number", "Evidence Type", "Owner Badge ID", "Owner First Name", "Owner Last Name",
+  "Owner Role", "Serial Number", "Created Date (Record Start)", "External Evidence ID"];
 interface ScriptResult {
   run_id: string;
   snapshot_date: string;
@@ -18,11 +60,31 @@ interface ScriptResult {
 
 function main(workbook: ExcelScript.Workbook, csvText: string,
   snapshotDate: string, runId: string, sourceDataDate: string = "",
-  sampleData: boolean = false): ScriptResult {
+  sampleData: boolean = false, sourceFormat: string = "csv"): ScriptResult {
+  let creationFromDate = "", creationToDate = "";
+  let state: ReconciledState | undefined;
+  if (sourceFormat === "axon-refresh-bundle") {
+    const refresh = JSON.parse(csvText) as AxonRefresh;
+    state = reconcileAxon(workbook, refresh);
+    csvText = sourceRowsCsv(state.rows);
+    creationFromDate = refresh.creation_from_date;
+    creationToDate = refresh.creation_to_date;
+    if (state.metadata["Sample Data"] === true) sampleData = true;
+  }
+  else if (sourceFormat === "axon-page-bundle") {
+    const bundle = JSON.parse(csvText) as AxonBundle;
+    csvText = axonBundleCsv(bundle);
+    creationFromDate = bundle.from_date || "";
+    creationToDate = bundle.to_date || "";
+    if (bundle.sample_data === true) sampleData = true;
+  } else if (sourceFormat !== "csv") {
+    throw new Error("Source format must be csv, axon-page-bundle, or axon-refresh-bundle.");
+  }
   const required = ["Evidence ID", "Categories", "Status", "Date Uploaded", "Owner Groups"];
   const optional = ["Evidence Serial Number", "Evidence Type", "Owner Badge ID", "Owner First Name",
-    "Owner Last Name", "Owner Role", "Serial Number", "Created Date (Record Start)"];
+    "Owner Last Name", "Owner Role", "Serial Number", "Created Date (Record Start)", "External Evidence ID"];
   const known = required.concat(optional);
+  const normalize = (value: string): string => sourceFormat !== "csv" ? value.trim() : clean(value);
   const details: DataRow[] = [];
   const rejected: DataRow[] = [];
   const counts: DataRow = { "Input Rows": 0, "Blank Rows Removed": 0, "Duplicate Rows Removed": 0,
@@ -46,7 +108,7 @@ function main(workbook: ExcelScript.Workbook, csvText: string,
   const seen = new Map<string, string>();
   for (let index = 1; index < records.length; index++) {
     const cells = records[index];
-    if (cells.every(value => clean(value) === "")) {
+    if (cells.every(value => normalize(value) === "")) {
       counts["Blank Rows Removed"] = Number(counts["Blank Rows Removed"]) + 1;
       continue;
     }
@@ -55,7 +117,7 @@ function main(workbook: ExcelScript.Workbook, csvText: string,
     const source: SourceRow = {};
     known.forEach(name => {
       const position = headers.indexOf(name);
-      source[name] = position < 0 ? "" : clean(cells[position]);
+      source[name] = position < 0 ? "" : normalize(cells[position]);
     });
     const id = source["Evidence ID"];
     const signature = JSON.stringify(known.map(name => source[name]));
@@ -110,18 +172,23 @@ function main(workbook: ExcelScript.Workbook, csvText: string,
     || String(a["Evidence ID"]).localeCompare(String(b["Evidence ID"])));
   const metadata: DataRow = { "Run ID": runId, "Snapshot Date": snapshotDate, "Fiscal Year": fy };
   const snapshot: DataRow = { ...metadata, ...metrics(details), ...counts,
-    "Sample Data": sampleData, "Source Data Date": sourceDataDate };
+    "Source Data Date": sourceDataDate,
+    "Source Report": state ? "EvidenceCreated+EvidenceUpdated" : sourceFormat === "axon-page-bundle" ? "EvidenceCreated" : "CSV export",
+    "Creation From Date": creationFromDate, "Creation To Date": creationToDate,
+    ...(state ? state.metadata : {}), "Sample Data": sampleData };
   const expected = details.length + Number(counts["Duplicate Rows Removed"]) + Number(counts["Excluded Status Rows"])
     + Number(counts["Categorized Rows"]) + Number(counts["Rejected Rows"]);
   if (expected !== Number(counts["Input Rows"])) throw new Error("Source row reconciliation failed.");
   if (details.length > 1048575) throw new Error("Excel row limit exceeded; use the CSV/Power Query route.");
 
   // All source validation finishes before workbook mutation.
+  if (state) writeTable(workbook, "Evidence State", "EvidenceState", ["Evidence ID", "Record JSON"],
+    state.rows.map(row => ({ "Evidence ID": row["Evidence ID"], "Record JSON": JSON.stringify(row) })));
   const detailFields = ["Run ID", "Snapshot Date", "Fiscal Year", "Evidence ID", "Days Since Upload",
     "Age Band", "Age Band Order", "Age Band Color", "Evidence Serial Number", "Evidence Type", "Status",
     "Owner Badge ID", "Owner First Name", "Owner Last Name", "Owner Role", "Owner Groups", "Serial Number",
     "Created Date (Record Start)", "Date Uploaded", "Days Between Create and Upload Date",
-    "Component", "Component Name", "AOR", "Data Quality Notes"];
+    "Component", "Component Name", "AOR", "Data Quality Notes", "External Evidence ID"];
   const metricFields = Object.keys(metrics([]));
   const summaries: { name: string; table: string; dimensions: string[] }[] = [
     { name: "AOR Summary", table: "AORSummary", dimensions: ["Component", "AOR"] },
@@ -261,4 +328,174 @@ function parseCsv(content: string): string[][] {
   if (quoted) throw new Error("Unterminated quoted CSV field.");
   if (field !== "" || row.length > 0 || closedQuote) { row.push(field); rows.push(row); }
   return rows;
+}
+
+function parseUtc(value: string | undefined): number | null {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) return null;
+  const time = Date.parse(value + "Z");
+  return Number.isFinite(time) && new Date(time).toISOString().slice(0, 19) === value ? time : null;
+}
+
+function axonBundleRows(bundle: AxonBundle): SourceRow[] {
+  if (!bundle || bundle.schema_version !== 1 || !["EvidenceCreated", "EvidenceUpdated"].includes(bundle.report_type)) {
+    throw new Error("Expected an EvidenceCreated or EvidenceUpdated page bundle with schema_version 1.");
+  }
+  if (bundle.sample_data !== undefined && typeof bundle.sample_data !== "boolean") {
+    throw new Error("sample_data must be a boolean when provided.");
+  }
+  if (bundle.report_type === "EvidenceCreated") {
+    const start = typeof bundle.from_date === "string" ? parseDay(bundle.from_date) : null;
+    const end = typeof bundle.to_date === "string" ? parseDay(bundle.to_date) : null;
+    if (start === null || end === null || bundle.from_date?.length !== 10 || bundle.to_date?.length !== 10 || end < start) {
+      throw new Error("Page bundle requires a valid creation-date range.");
+    }
+  } else {
+    const start = parseUtc(bundle.updated_from_datetime), end = parseUtc(bundle.updated_to_datetime);
+    if (start === null || end === null || end < start) throw new Error("Updated report requires a valid UTC timestamp range.");
+  }
+  if (!Number.isInteger(bundle.page_size) || bundle.page_size < 1 || bundle.page_size > 50
+      || !Array.isArray(bundle.pages) || bundle.pages.length === 0) {
+    throw new Error("Page bundle requires page_size 1–50 and a terminal page.");
+  }
+  const output: SourceRow[] = [];
+  bundle.pages.forEach((page, index) => {
+    if (!page || page.page_offset !== index || !Number.isInteger(page.page_offset) || !Array.isArray(page.data)) {
+      throw new Error("Report pages must be contiguous from page_offset 0 and contain data arrays.");
+    }
+    if (page.data.length > bundle.page_size) throw new Error("Report page exceeds the configured page size.");
+    if (page.data.length === 0 && index !== bundle.pages.length - 1) throw new Error("Empty terminal page must be last.");
+    if (page.data.length > 0 && index === bundle.pages.length - 1) throw new Error("Incomplete report: empty terminal page is missing.");
+    page.data.forEach(record => {
+      if (!record || typeof record !== "object" || Array.isArray(record)
+          || !["evidenceId", "status", "dateUploaded", "ownerGroups", "categories"].every(key => Object.prototype.hasOwnProperty.call(record, key))) {
+        throw new Error("Report record is missing required API fields.");
+      }
+      const text = (value: string | null | undefined): string => {
+        if (value === null || value === undefined) return "";
+        if (typeof value !== "string") throw new Error("API metadata and identifier fields must be text or null.");
+        return value.trim();
+      };
+      const names = (value: string[] | null): string[] => {
+        if (value === null) return [];
+        if (!Array.isArray(value) || value.some(item => typeof item !== "string" || item.trim() === "")) {
+          throw new Error("API groups/categories must be arrays of nonempty names or null.");
+        }
+        return value.map(item => item.trim());
+      };
+      const groups = names(record.ownerGroups);
+      let categories: string[];
+      if (bundle.report_type === "EvidenceUpdated" && record.categories !== null) {
+        if (!Array.isArray(record.categories) || record.categories.some(item => typeof item !== "object" || item === null
+          || typeof item.category !== "string" || item.category.trim() === "")) {
+          throw new Error("EvidenceUpdated categories must contain category objects.");
+        }
+        categories = record.categories.map(item => typeof item === "string" ? "" : item.category.trim());
+      } else categories = names(record.categories as string[] | null);
+      const values = [text(record.evidenceId), categories.length ? JSON.stringify(categories) : "", text(record.status),
+        text(record.dateUploaded), groups.join(", "), "", text(record.evidenceType), text(record.ownerBadgeId),
+        text(record.ownerFirstName), text(record.ownerLastName), text(record.ownerRole), text(record.serialNumber),
+        text(record.dateRecordStart), text(record.idExternal)];
+      const row: SourceRow = {};
+      axonFields.forEach((field, index) => { row[field] = values[index]; });
+      output.push(row);
+    });
+  });
+  return output;
+}
+
+function sourceRowsCsv(rows: SourceRow[]): string {
+  const escape = (value: string): string => /[",\r\n]/.test(value) ? '"' + value.replace(/"/g, '""') + '"' : value;
+  return [axonFields].concat(rows.map(row => axonFields.map(field => row[field])))
+    .map(row => row.map(escape).join(",")).join("\r\n") + "\r\n";
+}
+
+function axonBundleCsv(bundle: AxonBundle): string {
+  // The single-report route is a complete snapshot, never an incremental delta.
+  if (bundle?.report_type !== "EvidenceCreated") throw new Error("Snapshot input must use EvidenceCreated.");
+  return sourceRowsCsv(axonBundleRows(bundle));
+}
+
+function readStateSheet(workbook: ExcelScript.Workbook, name: string): CellValue[][] {
+  const sheet = workbook.getWorksheet(name);
+  const range = sheet?.getUsedRange();
+  if (!range) throw new Error("Previous published workbook has no " + name + " state.");
+  return range.getValues();
+}
+
+function reconcileAxon(workbook: ExcelScript.Workbook, refresh: AxonRefresh): ReconciledState {
+  if (!refresh || refresh.schema_version !== 1 || !["backfill", "incremental"].includes(refresh.mode)
+      || typeof refresh.previous_run_id !== "string" || !refresh.created || !refresh.updated
+      || refresh.created.report_type !== "EvidenceCreated" || refresh.updated.report_type !== "EvidenceUpdated") {
+    throw new Error("Invalid refresh envelope: complete Created and Updated reports are required.");
+  }
+  if (refresh.sample_data !== undefined && typeof refresh.sample_data !== "boolean") throw new Error("sample_data must be boolean.");
+  const scopeFrom = parseDay(refresh.creation_from_date || ""), scopeTo = parseDay(refresh.creation_to_date || "");
+  if (scopeFrom === null || scopeTo === null || refresh.creation_from_date.length !== 10
+      || refresh.creation_to_date.length !== 10 || scopeTo < scopeFrom || refresh.created.to_date !== refresh.creation_to_date) {
+    throw new Error("Invalid refresh creation scope.");
+  }
+  const created = axonBundleRows(refresh.created), updated = axonBundleRows(refresh.updated);
+  const state = new Map<string, SourceRow>();
+  let containsSample = refresh.sample_data === true || refresh.created.sample_data === true || refresh.updated.sample_data === true;
+  if (refresh.mode === "incremental") {
+    const snapshot = readStateSheet(workbook, "Snapshot");
+    if (snapshot.length !== 2) throw new Error("Previous workbook must have one Snapshot row.");
+    const prior: DataRow = {};
+    snapshot[0].forEach((field, index) => { prior[String(field)] = snapshot[1][index]; });
+    containsSample = containsSample || prior["Sample Data"] === true;
+    const previousTo = parseDay(String(prior["Creation To Date"] || ""));
+    const previousWatermark = parseUtc(String(prior["Updated Through UTC"] || ""));
+    const from = parseUtc(refresh.updated.updated_from_datetime), to = parseUtc(refresh.updated.updated_to_datetime);
+    const createdFrom = parseDay(refresh.created.from_date || "");
+    if (refresh.previous_run_id === "" || prior["Run ID"] !== refresh.previous_run_id
+        || prior["Source Report"] !== "EvidenceCreated+EvidenceUpdated"
+        || prior["Creation From Date"] !== refresh.creation_from_date || previousTo === null || previousWatermark === null
+        || createdFrom === null || createdFrom > previousTo || createdFrom < scopeFrom || scopeTo < previousTo
+        || from === null || to === null || from > previousWatermark || to <= previousWatermark) {
+      throw new Error("Incremental refresh has a stale base, changed scope, or watermark gap; publish stopped.");
+    }
+    const ledger = readStateSheet(workbook, "Evidence State");
+    if (ledger[0].length !== 2 || ledger[0][0] !== "Evidence ID" || ledger[0][1] !== "Record JSON") throw new Error("Invalid state headers.");
+    ledger.slice(1).forEach(cells => {
+      if (cells.every(value => value === "")) return;
+      const row = JSON.parse(String(cells[1])) as SourceRow;
+      if (!row || !axonFields.every(field => typeof row[field] === "string") || row["Evidence ID"] === ""
+          || state.has(row["Evidence ID"])) throw new Error("Previous evidence state is corrupt.");
+      state.set(row["Evidence ID"], row);
+    });
+    if (state.size !== Number(prior["State Rows"])) throw new Error("Previous evidence state row count does not reconcile.");
+  } else if (refresh.previous_run_id !== "" || refresh.created.from_date !== refresh.creation_from_date) {
+    throw new Error("Backfill must start at the configured creation date and have no previous run ID.");
+  }
+  let outsideScope = 0;
+  const apply = (rows: SourceRow[]): void => {
+    const seen = new Map<string, string>();
+    rows.forEach(row => {
+      const id = row["Evidence ID"], day = parseDay(row["Created Date (Record Start)"]);
+      if (id === "" || day === null) throw new Error("Refresh requires internal evidence IDs and valid recording-start dates.");
+      const signature = JSON.stringify(row);
+      if (seen.has(id)) {
+        if (seen.get(id) !== signature) throw new Error("Conflicting duplicate evidence IDs in a report; publish stopped.");
+        return;
+      }
+      seen.set(id, signature);
+      if (day < scopeFrom || day > scopeTo) { state.delete(id); outsideScope++; }
+      else state.set(id, row);
+    });
+  };
+  apply(created);
+  apply(updated); // Current Updated metadata wins over Created; retain all statuses/categories in the ledger.
+  const rows: SourceRow[] = [];
+  state.forEach(row => {
+    const day = parseDay(row["Created Date (Record Start)"]);
+    if (day === null || day < scopeFrom || day > scopeTo || JSON.stringify(row).length > 32767
+        || row["Evidence ID"].length > 32767) throw new Error("Evidence state is out of scope or exceeds Excel cell limits.");
+    rows.push(row);
+  });
+  if (rows.length > 1048575) throw new Error("Evidence state exceeds the Excel row limit.");
+  rows.sort((a, b) => a["Evidence ID"].localeCompare(b["Evidence ID"]));
+  return { rows, metadata: { "Refresh Mode": refresh.mode, "Previous Run ID": refresh.previous_run_id,
+    "Updated From UTC": refresh.updated.updated_from_datetime || "", "Updated Through UTC": refresh.updated.updated_to_datetime || "",
+    "State Rows": rows.length, "Created Rows Received": created.length, "Updated Rows Received": updated.length,
+    "Out of Scope Updates": outsideScope, "Sample Data": containsSample } };
 }

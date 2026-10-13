@@ -1,0 +1,52 @@
+{
+  "description": "Designer/code-view expression fragments, not an importable flow. Never insert literal secrets.",
+  "token_uri": "@concat(variables('AxonBaseUrl'), '/api/oauth2/token')",
+  "token_content_type": "application/x-www-form-urlencoded",
+  "token_body": "@concat('grant_type=client_credentials&client_id=', uriComponent(variables('ClientId')), '&client_secret=', uriComponent(variables('ClientSecret')), if(variables('LegacyTokenPartnerId'), concat('&partner_id=', uriComponent(variables('AgencyId'))), ''))",
+  "report_uri": "@concat(variables('AxonBaseUrl'), '/api/v1/agencies/', uriComponent(variables('AgencyId')), '/reports/data?reportType=EvidenceCreated&fromDate=', variables('CreationFromDate'), '&toDate=', variables('CreationToDate'), '&pageSize=', string(variables('PageSize')), '&pageOffset=', string(variables('PageOffset')))",
+  "authorization_header": "@concat('Bearer ', variables('AccessToken'))",
+  "append_page": {
+    "page_offset": "@variables('PageOffset')",
+    "data": "@body('Select_Report_Fields')"
+  },
+  "page_is_empty": "@equals(length(body('Parse_Report_Page')?['data']), 0)",
+  "completed_bundle": {
+    "schema_version": 1,
+    "report_type": "EvidenceCreated",
+    "from_date": "@variables('CreationFromDate')",
+    "to_date": "@variables('CreationToDate')",
+    "page_size": "@variables('PageSize')",
+    "sample_data": false,
+    "pages": "@variables('ReportPages')"
+  },
+  "office_script_parameters": {
+    "csvText": "@string(outputs('Compose_Completed_Refresh_Bundle'))",
+    "sourceFormat": "axon-refresh-bundle",
+    "snapshotDate": "@outputs('SnapshotDate')",
+    "runId": "@outputs('RunId')",
+    "sourceDataDate": "",
+    "sampleData": false
+  },
+  "updated_report_uri": "@concat(variables('AxonBaseUrl'), '/api/v1/agencies/', uriComponent(variables('AgencyId')), '/reports/data?reportType=EvidenceUpdated&updatedFromDateTime=', uriComponent(variables('UpdatedFromUtc')), '&updatedToDateTime=', uriComponent(variables('UpdatedToUtc')), '&pageSize=', string(variables('PageSize')), '&pageOffset=', string(variables('PageOffset')))",
+  "incremental_created_from_date": "@if(less(formatDateTime(addDays(concat(body('Read_Refresh_State')?['result']?['creation_to_date'], 'T00:00:00Z'), -1), 'yyyy-MM-dd'), variables('CreationScopeFromDate')), variables('CreationScopeFromDate'), formatDateTime(addDays(concat(body('Read_Refresh_State')?['result']?['creation_to_date'], 'T00:00:00Z'), -1), 'yyyy-MM-dd'))",
+  "incremental_updated_from_utc": "@formatDateTime(addSeconds(concat(body('Read_Refresh_State')?['result']?['updated_through_utc'], 'Z'), mul(-1, variables('OverlapSeconds'))), 'yyyy-MM-ddTHH:mm:ss')",
+  "completed_updated_bundle": {
+    "schema_version": 1,
+    "report_type": "EvidenceUpdated",
+    "updated_from_datetime": "@variables('UpdatedFromUtc')",
+    "updated_to_datetime": "@variables('UpdatedToUtc')",
+    "page_size": "@variables('PageSize')",
+    "sample_data": false,
+    "pages": "@variables('UpdatedReportPages')"
+  },
+  "completed_refresh_bundle": {
+    "schema_version": 1,
+    "mode": "@variables('RefreshMode')",
+    "previous_run_id": "@variables('PreviousRunId')",
+    "creation_from_date": "@variables('CreationScopeFromDate')",
+    "creation_to_date": "@variables('CreationToDate')",
+    "sample_data": false,
+    "created": "@outputs('Compose_Completed_Bundle')",
+    "updated": "@outputs('Compose_Completed_Updated_Bundle')"
+  }
+}

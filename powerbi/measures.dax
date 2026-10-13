@@ -19,8 +19,14 @@ Average Days Since Upload = AVERAGE('Uncategorized'[Days Since Upload])
 
 Snapshot Date = MAX('Snapshot'[Snapshot Date])
 
+Creation From Date = MAX('Snapshot'[Creation From Date])
+
+Creation To Date = MAX('Snapshot'[Creation To Date])
+
 Rejected Source Rows = COALESCE(SUM('Snapshot'[Rejected Rows]), 0)
 
 Data Mode = IF(SELECTEDVALUE('Snapshot'[Sample Data], FALSE()), "SYNTHETIC DEMO DATA", "Production data")
 
 Age Band Color = SELECTEDVALUE('Uncategorized'[Age Band Color], "#243746")
+
+Updated Through UTC = SELECTEDVALUE('Snapshot'[Updated Through UTC])

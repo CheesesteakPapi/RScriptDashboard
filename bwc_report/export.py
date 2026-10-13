@@ -118,6 +118,9 @@ def publish_local(report: Report, output: Path, source_hash: str, source_date: s
     manifest = {
         "schema_version": 1, "run_id": run_id, "snapshot_date": day,
         "source_data_date": source_date, "fiscal_year": fy, "source_sha256": source_hash,
+        "source_report": report.summary.get("Source Report"),
+        "creation_from_date": report.summary.get("Creation From Date") or None,
+        "creation_to_date": report.summary.get("Creation To Date") or None,
         "sample_data": sample, "snapshot_folder": relative + "/",
         "moderate_starts_at": moderate, "critical_starts_at": critical,
         "uncategorized_items": len(report.details), "rejected_rows": len(report.rejected),

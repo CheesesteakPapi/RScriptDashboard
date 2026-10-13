@@ -1,6 +1,6 @@
 # Reporting rules and data contract
 
-The requirements come from the user-supplied **ICE BWC Uncategorized Report Script Analysis**. The original R Markdown source, real API documentation, and production export were not supplied. This implementation translates that analysis and verifies the rules with synthetic data; it is not a byte-for-byte port of an inspected R program.
+The business requirements come from the user-supplied **ICE BWC Uncategorized Report Script Analysis**. The subsequently supplied Axon API documents establish the EvidenceCreated reporting contract and mapping described in `axon-api-integration.md`. The original R Markdown source and a production export/API response were not supplied. This implementation translates those requirements and verifies the rules with synthetic data; it is not a byte-for-byte port of an inspected R program.
 
 ## Decisions
 
@@ -27,7 +27,9 @@ The requirements come from the user-supplied **ICE BWC Uncategorized Report Scri
 
 Required: `Evidence ID`, `Categories`, `Status`, `Date Uploaded`, `Owner Groups`.
 
-Optional: `Evidence Serial Number`, `Evidence Type`, `Owner Badge ID`, `Owner First Name`, `Owner Last Name`, `Owner Role`, `Serial Number`, `Created Date (Record Start)`.
+Optional: `Evidence Serial Number`, `Evidence Type`, `Owner Badge ID`, `Owner First Name`, `Owner Last Name`, `Owner Role`, `Serial Number`, `Created Date (Record Start)`, `External Evidence ID`.
+
+For API input, Evidence ID is the documented unique internal `evidenceId`, and External Evidence ID preserves `idExternal`. The report schema does not document an evidence-serial field; leave that optional field blank rather than substituting a different identifier. The creation-date window is recorded in Snapshot and must be approved independently of upload-age thresholds.
 
 Read IDs and badges as **text** to preserve leading zeroes. UTF-8 CSV with comma delimiters and standard CSV quoting is the common exchange format. Translate actual API JSON field names into these headers in Power Automate after reviewing the endpoint documentation. If the API returns an export job, poll that job; if it returns pages, retrieve every page before treating the dataset as a snapshot.
 
@@ -52,3 +54,7 @@ The original 16-sheet design becomes a seven-sheet workbook: Instructions, Uncat
 Snapshot date means the date used for the age calculation. Source Data Date means the API/export's known extraction date; leave it blank when unknown. Do not substitute the flow run date for an unknown extraction date. A daily archive is evidence of observed snapshots, not proof of when an item was ultimately categorized.
 
 Future storage can use SharePoint lists or Dataverse with a separate snapshot record and `(Snapshot Date, Evidence ID)` detail key. A current-state migration must remove or resolve items that disappear from the uncategorized snapshot; simple append-only imports will overstate the backlog.
+
+## Confirmed incremental scope
+
+Recording creation starts March 11, 2024. Daily or weekly runs append immutable raw response/workbook history and upsert current state by internal Evidence ID. Created and Updated responses have different category formats; the Office Script normalizes both before filtering. Retain all statuses and category assignments in EvidenceState, then derive the current backlog and recalculate every record's calendar age. Incremental windows use the last published UTC watermark with overlap, not the maximum dateModified from returned rows. A periodic complete reconciliation replaces the ledger to repair missed updates or disappeared evidence. Archived detail snapshots must not be appended into the current Power BI fact table.

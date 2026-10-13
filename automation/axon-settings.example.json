@@ -1,0 +1,17 @@
+{
+  "agency_base_url": null,
+  "agency_partner_id": null,
+  "creation_from_date": "2024-03-11",
+  "creation_to_date": "SnapshotDate flow variable",
+  "page_size": 50,
+  "legacy_token_partner_id": false,
+  "client_id_source": "existing approved connection or secure configuration",
+  "client_secret_source": "existing approved connection or secret store; never commit a value",
+  "required_axon_permission": "Reports.read",
+  "max_retries_per_page": 6,
+  "throttle_fallback_seconds": 300,
+  "source_format": "axon-refresh-bundle",
+  "cadence": "daily; weekly also supported",
+  "overlap_seconds": 86400,
+  "full_reconciliation": "weekly for daily runs; monthly for weekly runs; confirm after tenant pilot"
+}

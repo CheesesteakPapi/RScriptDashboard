@@ -9,12 +9,14 @@ from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .core import ReportError, read_csv, transform
+from .axon import page_bundle_csv
 from .export import publish_local
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Generate a Power BI-ready uncategorized evidence snapshot.")
     parser.add_argument("--input", type=Path, required=True, help="Evidence.com CSV export")
+    parser.add_argument("--input-format", choices=("csv", "axon-page-bundle"), default="csv")
     parser.add_argument("--output", type=Path, default=Path("output"))
     parser.add_argument("--as-of", type=date.fromisoformat, help="Snapshot date (YYYY-MM-DD)")
     parser.add_argument("--source-date", type=date.fromisoformat, help="Known data extraction date; omit if unknown")
@@ -34,10 +36,19 @@ def main(argv=None) -> int:
                 or not all(isinstance(key, str) and isinstance(value, str) for key, value in mapping.items())):
             raise ReportError("Column map must be a JSON object mapping strings to strings.")
         content = args.input.read_bytes()
-        report = transform(read_csv(content, args.encoding, mapping), as_of, uuid.uuid4().hex,
+        if args.input_format == "axon-page-bundle" and mapping:
+            raise ReportError("API bundle fields use the documented mapping; --column-map is for CSV input.")
+        bundle = json.loads(content.decode("utf-8-sig")) if args.input_format == "axon-page-bundle" else None
+        rows = read_csv(page_bundle_csv(bundle), null_markers=False) if args.input_format == "axon-page-bundle" else read_csv(content, args.encoding, mapping)
+        if bundle is not None and bundle.get("sample_data") is True:
+            args.sample = True
+        report = transform(rows, as_of, uuid.uuid4().hex,
                            args.moderate_day, args.critical_day)
         report.summary["Sample Data"] = args.sample
         report.summary["Source Data Date"] = args.source_date.isoformat() if args.source_date else ""
+        report.summary["Source Report"] = "EvidenceCreated" if bundle is not None else "CSV export"
+        report.summary["Creation From Date"] = bundle["from_date"] if bundle is not None else ""
+        report.summary["Creation To Date"] = bundle["to_date"] if bundle is not None else ""
         if report.rejected and args.fail_on_rejects:
             raise ReportError(f"{len(report.rejected)} source rows rejected; latest snapshot was not changed.")
         folder = publish_local(report, args.output, hashlib.sha256(content).hexdigest(),

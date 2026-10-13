@@ -16,6 +16,7 @@ REQUIRED = ("Evidence ID", "Categories", "Status", "Date Uploaded", "Owner Group
 OPTIONAL = (
     "Evidence Serial Number", "Evidence Type", "Owner Badge ID", "Owner First Name",
     "Owner Last Name", "Owner Role", "Serial Number", "Created Date (Record Start)",
+    "External Evidence ID",
 )
 NULLS = {"", "na", "n/a", "null", "none", "nan", "<na>"}
 STATUSES = {"active", "queued for deletion"}
@@ -26,6 +27,7 @@ DETAIL_FIELDS = (
     "Owner Role", "Owner Groups", "Serial Number", "Created Date (Record Start)",
     "Date Uploaded", "Days Between Create and Upload Date", "Component",
     "Component Name", "AOR", "Data Quality Notes",
+    "External Evidence ID",
 )
 METRIC_FIELDS = (
     "Total Uncategorized Items", "Normal Items", "Moderate Items", "Critical Items",
@@ -84,7 +86,8 @@ def parse_day(value: str) -> date:
 
 
 def read_csv(content: bytes, encoding: str = "utf-8-sig",
-             column_map: dict[str, str] | None = None) -> list[dict[str, str]]:
+             column_map: dict[str, str] | None = None,
+             null_markers: bool = True) -> list[dict[str, str]]:
     try:
         reader = csv.DictReader(io.StringIO(content.decode(encoding), newline=""))
         if reader.fieldnames is None:
@@ -98,13 +101,14 @@ def read_csv(content: bytes, encoding: str = "utf-8-sig",
         if missing:
             raise ReportError("Missing required source columns: " + ", ".join(missing))
         rows = []
+        normalize = clean if null_markers else lambda value: "" if value is None else str(value).strip()
         for row in reader:
             if None in row or any(value is None for value in row.values()):
                 raise ReportError(f"CSV row {reader.line_num} has an unexpected number of cells.")
-            if not any(clean(value) for value in row.values()):
+            if not any(normalize(value) for value in row.values()):
                 rows.append({"__blank__": "1"})
                 continue
-            mapped = {key: clean(row.get(source, "")) for key, source in mapping.items()}
+            mapped = {key: normalize(row.get(source, "")) for key, source in mapping.items()}
             mapped["__row__"] = str(reader.line_num)
             rows.append(mapped)
         return rows

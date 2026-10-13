@@ -8,7 +8,7 @@ let
     CriticalDay = 30,
     Required = {"Evidence ID", "Categories", "Status", "Date Uploaded", "Owner Groups"},
     Optional = {"Evidence Serial Number", "Evidence Type", "Owner Badge ID", "Owner First Name",
-        "Owner Last Name", "Owner Role", "Serial Number", "Created Date (Record Start)"},
+        "Owner Last Name", "Owner Role", "Serial Number", "Created Date (Record Start)", "External Evidence ID"},
     Known = Required & Optional,
     Clean = (value as any) as nullable text =>
         let text = if value = null then "" else Text.Trim(Text.From(value))
@@ -107,7 +107,7 @@ let
         "Age Band", "Age Band Order", "Age Band Color", "Evidence Serial Number", "Evidence Type", "Status",
         "Owner Badge ID", "Owner First Name", "Owner Last Name", "Owner Role", "Owner Groups", "Serial Number",
         "Created Date (Record Start)", "Date Uploaded", "Days Between Create and Upload Date",
-        "Component", "Component Name", "AOR", "Data Quality Notes"},
+        "Component", "Component Name", "AOR", "Data Quality Notes", "External Evidence ID"},
     Dates = {"Snapshot Date", "Created Date (Record Start)", "Date Uploaded"},
     Integers = {"Fiscal Year", "Days Since Upload", "Age Band Order", "Days Between Create and Upload Date"},
     DetailTypes = List.Transform(DetailColumns, each {_,
@@ -127,7 +127,8 @@ let
         #"Excluded Status Rows"=Table.RowCount(Unique)-Table.RowCount(StatusRows),
         #"Categorized Rows"=Table.RowCount(StatusRows)-Table.RowCount(Eligible),
         #"Rejected Rows"=Table.RowCount(Rejected),
-        #"Sample Data"=if sampleData=null then false else sampleData, #"Source Data Date"=sourceDataDate],
+        #"Sample Data"=if sampleData=null then false else sampleData, #"Source Data Date"=sourceDataDate,
+        #"Source Report"="CSV export", #"Creation From Date"=null, #"Creation To Date"=null],
     Snapshot = Table.FromRecords({SnapshotRecord}),
     Result = [Details=Details, Snapshot=Snapshot, Rejected=Rejected]
 in

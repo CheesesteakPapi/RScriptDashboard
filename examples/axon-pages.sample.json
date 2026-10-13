@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "report_type": "EvidenceCreated",
+  "from_date": "2024-03-11",
+  "to_date": "2026-10-13",
+  "page_size": 5,
+  "sample_data": true,
+  "pages": [
+    {
+      "page_offset": 0,
+      "data": [
+        {
+          "evidenceId": "DEMO-001",
+          "status": "Active",
+          "dateUploaded": "2026-10-13T08:00:00Z",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-001",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-002",
+          "status": "Active",
+          "dateUploaded": "2026-09-29T08:00:00Z",
+          "ownerGroups": [
+            "ERO Miami 2nd Line Sup"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-002",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0002",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 2",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-2",
+          "dateRecordStart": "2026-09-27T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-003",
+          "status": "Active",
+          "dateUploaded": "2026-09-28T08:00:00Z",
+          "ownerGroups": [
+            "FLETC Users"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-003",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0003",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 3",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-3",
+          "dateRecordStart": "2026-09-26T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-004",
+          "status": "Active",
+          "dateUploaded": "2026-09-14T08:00:00Z",
+          "ownerGroups": [
+            "FOIA Users"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-004",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0004",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 4",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-4",
+          "dateRecordStart": "2026-09-12T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-005",
+          "status": "Active",
+          "dateUploaded": "2026-09-13T08:00:00Z",
+          "ownerGroups": [
+            "Office of Professional Responsibility Users"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-005",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0005",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 5",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-5",
+          "dateRecordStart": "2026-09-11T07:00:00Z"
+        }
+      ]
+    },
+    {
+      "page_offset": 1,
+      "data": [
+        {
+          "evidenceId": "DEMO-006",
+          "status": "Queued for Deletion",
+          "dateUploaded": "2026-09-12T08:00:00Z",
+          "ownerGroups": [
+            "Office of Firearms and Tactical Programs"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-006",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0006",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 6",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-6",
+          "dateRecordStart": "2026-09-10T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-007",
+          "status": "Active",
+          "dateUploaded": "2026-07-30T08:00:00Z",
+          "ownerGroups": [],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-007",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0007",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 7",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-7",
+          "dateRecordStart": "2026-07-28T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-008",
+          "status": "Active",
+          "dateUploaded": "2026-09-04T08:00:00Z",
+          "ownerGroups": [
+            "Legal Users"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-008",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0008",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 8",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-8",
+          "dateRecordStart": "2026-09-02T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-CATEGORIZED",
+          "status": "Active",
+          "dateUploaded": "2026-10-13T08:00:00Z",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [
+            "Case evidence"
+          ],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-CATEGORIZED",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-DELETED",
+          "status": "Deleted",
+          "dateUploaded": "2026-10-13T08:00:00Z",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-DELETED",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        }
+      ]
+    },
+    {
+      "page_offset": 2,
+      "data": [
+        {
+          "evidenceId": "DEMO-FUTURE",
+          "status": "Active",
+          "dateUploaded": "2026-10-14",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-FUTURE",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-INVALID",
+          "status": "Active",
+          "dateUploaded": "not-a-date",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-INVALID",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        },
+        {
+          "evidenceId": null,
+          "status": "Active",
+          "dateUploaded": "2026-10-13T08:00:00Z",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [],
+          "idExternal": null,
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        },
+        {
+          "evidenceId": "DEMO-001",
+          "status": "Active",
+          "dateUploaded": "2026-10-13T08:00:00Z",
+          "ownerGroups": [
+            "HSI Baltimore Users",
+            "Admin"
+          ],
+          "categories": [],
+          "idExternal": "SYNTHETIC-EXTERNAL-DEMO-001",
+          "evidenceType": "Video",
+          "ownerBadgeId": "0001",
+          "ownerFirstName": "Synthetic",
+          "ownerLastName": "Person 1",
+          "ownerRole": "Demo Officer",
+          "serialNumber": "DEMO-DEVICE-1",
+          "dateRecordStart": "2026-10-11T07:00:00Z"
+        }
+      ]
+    },
+    {
+      "page_offset": 3,
+      "data": []
+    }
+  ]
+}

@@ -22,7 +22,9 @@ let
     NullBlanks = Table.ReplaceValue(ValidDetails, "", null, Replacer.ReplaceValue, Dates & Integers),
     Details = Table.TransformColumnTypes(NullBlanks, Types),
     SnapshotRaw = ReadTable("Snapshot"),
-    Snapshot = Table.ReplaceValue(SnapshotRaw, "", null, Replacer.ReplaceValue, {"Source Data Date"}),
+    SnapshotDateColumns = List.Intersect({Table.ColumnNames(SnapshotRaw),
+        {"Source Data Date", "Creation From Date", "Creation To Date"}}),
+    Snapshot = Table.ReplaceValue(SnapshotRaw, "", null, Replacer.ReplaceValue, SnapshotDateColumns),
     RejectedRaw = ReadTable("DataQuality"),
     Rejected = Table.SelectRows(RejectedRaw, each [Reason]<>null and Text.Trim(Text.From([Reason]))<>"")
 in

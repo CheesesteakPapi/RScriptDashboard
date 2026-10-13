@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "mode": "incremental",
+  "previous_run_id": "initial",
+  "creation_from_date": "2024-03-11",
+  "creation_to_date": "2026-10-14",
+  "created": {
+    "schema_version": 1,
+    "report_type": "EvidenceCreated",
+    "from_date": "2026-10-12",
+    "to_date": "2026-10-14",
+    "page_size": 50,
+    "pages": [
+      {
+        "page_offset": 0,
+        "data": [
+          {
+            "evidenceId": "new",
+            "status": "Active",
+            "dateUploaded": "2026-10-14",
+            "dateRecordStart": "2026-10-13",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "page_offset": 1,
+        "data": []
+      }
+    ]
+  },
+  "updated": {
+    "schema_version": 1,
+    "report_type": "EvidenceUpdated",
+    "updated_from_datetime": "2026-10-12T10:00:00",
+    "updated_to_datetime": "2026-10-14T10:00:00",
+    "page_size": 50,
+    "pages": [
+      {
+        "page_offset": 0,
+        "data": [
+          {
+            "evidenceId": "categorize",
+            "status": "Active",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2026-08-29T12:00:00Z",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": [
+              {
+                "category": "NULL",
+                "dateModified": "2026-10-13T14:00:00Z"
+              }
+            ]
+          },
+          {
+            "evidenceId": "delete",
+            "status": "Deleted",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2026-08-29T12:00:00Z",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          },
+          {
+            "evidenceId": "reopen",
+            "status": "Active",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2026-08-29T12:00:00Z",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          },
+          {
+            "evidenceId": "out-of-scope",
+            "status": "Active",
+            "dateUploaded": "2026-08-30T12:00:00Z",
+            "dateRecordStart": "2024-03-10",
+            "ownerGroups": [
+              "HSI DEMO Users"
+            ],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "page_offset": 1,
+        "data": []
+      }
+    ]
+  }
+}
