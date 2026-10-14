@@ -1,5 +1,7 @@
 # Cloud-only MVP setup
 
+For the complete ordered walkthrough, use [the implementation guide](implementation-guide.md). This page remains the concise architecture/setup reference.
+
 The production run uses **Power Automate cloud flows → Excel Online → SharePoint → Power BI Service**. No desktop scheduler, R installation, Python host, or Azure compute is required for the recurring run. Files in this repository are the preparation package; no flow, connection, or Power BI report has been deployed from this cloud task.
 
 ## Inputs still needed

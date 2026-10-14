@@ -11,6 +11,8 @@ flowchart LR
   E --> F[Power BI Service report]
 ```
 
+Start with the [step-by-step implementation guide](docs/implementation-guide.md) ([printable PDF](docs/implementation-guide.pdf)): cloning, SharePoint, scripts, credentials, flow actions, report publication, and daily/weekly operation.
+
 The [cloud setup guide](docs/microsoft-365-setup.md) covers the flow actions, workbook template, report tables, and refresh sequence. The [Axon integration guide](docs/axon-api-integration.md) maps the supplied vendor documentation into token acquisition, reporting pagination, and field normalization. The [reporting rules](docs/reporting-rules.md) record the decisions and source assumptions. The agency bindings are saved privately and the recording-creation start is March 11, 2024. Secure connections, Reports.read confirmation, SharePoint destination, and Power BI workspace remain needed for live deployment.
 
 Included files:

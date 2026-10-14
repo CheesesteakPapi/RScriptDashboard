@@ -1,5 +1,7 @@
 # BWC Uncategorized Power BI template
 
+Use [the project implementation guide](../../docs/implementation-guide.md) for the complete SharePoint, Power Automate, credential, and Power BI rollout.
+
 Open **BWC Uncategorized.pbip** in a current Power BI Desktop release. Keep both adjacent artifact folders with it. Select **Refresh** to load the embedded synthetic data; this project contains definitions, without a cached data model.
 
 The project contains three pages, 39 native visuals, three import tables, and 18 measures:
