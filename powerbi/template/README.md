@@ -56,6 +56,10 @@ python3 scripts/validate-powerbi-template.py
 node scripts/validate-powerquery.cjs /workspace/.bwc-powerquery-tools/node_modules/@microsoft/powerquery-parser
 ```
 
-Regeneration uses the existing source rules and queries and the fixed synthetic CSV. It rewrites generated project/model/report definitions; preserve Desktop edits before running it. The structural validator checks model references, canvas bounds, sample labeling/counts, age bands, parameter defaults, and the disconnected metadata table. The M check parses all six repository queries and nine template expressions/partitions; it does not execute them.
+Regeneration uses the existing source rules and queries and the fixed synthetic CSV. It rewrites generated project/model/report definitions; preserve Desktop edits before running it. The structural validator checks required loader files (including `BWC Uncategorized.Report/definition/version.json`), model references, canvas bounds, sample labeling/counts, age bands, parameter defaults, and the disconnected metadata table. The M check parses all six repository queries and nine template expressions/partitions; it does not execute them.
 
-Local verification also validated 47 project/report documents against [Microsoft's report/project schemas](https://github.com/microsoft/json-schemas) and the custom theme against the [August 2026 theme schema](https://github.com/microsoft/powerbi-desktop-samples/blob/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.157.json). These are format checks, not a substitute for the first Desktop open.
+Local verification also validated 48 project/report documents against [Microsoft's report/project schemas](https://github.com/microsoft/json-schemas) and the custom theme against the [August 2026 theme schema](https://github.com/microsoft/powerbi-desktop-samples/blob/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.157.json). These are format checks, not a substitute for the first Desktop open.
+
+## Update an earlier copy
+
+If Desktop reports that version.json is missing, close the project, run `git pull` from your cloned repository, and reopen BWC Uncategorized.pbip. The corrected project includes `BWC Uncategorized.Report/definition/version.json`; its report-definition version is 2.0.0, distinct from the entry-point definition.pbir version. ZIP users should extract the corrected download into a new folder and keep both artifact folders beside the .pbip file.

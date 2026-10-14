@@ -29,9 +29,26 @@ def walk(value):
             yield from walk(child)
 
 
+def validate_required_files(project: Path = PROJECT) -> Path:
+    shortcut = read(project / "BWC Uncategorized.pbip")
+    report = project / shortcut["artifacts"][0]["report"]["path"]
+    assert report.resolve().is_relative_to(project.resolve()), "Report path escapes the project"
+    for name in ("definition.pbir", "definition/version.json", "definition/report.json", "definition/pages/pages.json"):
+        assert (report / name).is_file(), f"Missing required Power BI report file: {name}"
+    version = read(report / "definition/version.json")
+    assert version.get("$schema") == ("https://developer.microsoft.com/json-schemas/"
+        "fabric/item/report/definition/versionMetadata/1.0.0/schema.json"), "Invalid report version metadata schema"
+    assert version.get("version") == "2.0.0", "Unsupported report definition version; expected 2.0.0"
+    definition = read(report / "definition.pbir")
+    model_dir = (report / definition["datasetReference"]["byPath"]["path"]).resolve()
+    assert model_dir.is_relative_to(project.resolve()), "Semantic model path escapes the project"
+    for name in ("definition.pbism", "model.bim"):
+        assert (model_dir / name).is_file(), f"Missing required semantic model file: {name}"
+    return report
+
+
 def validate_bindings() -> None:
-    shortcut = read(PROJECT / "BWC Uncategorized.pbip")
-    report = PROJECT / shortcut["artifacts"][0]["report"]["path"]
+    report = validate_required_files()
     definition = read(report / "definition.pbir")
     model_dir = (report / definition["datasetReference"]["byPath"]["path"]).resolve()
     model = read(model_dir / "model.bim")["model"]
@@ -96,6 +113,7 @@ def validate_bindings() -> None:
                         assert item["Property"] in catalog[entity], f"Missing {kind}: {entity}.{item['Property']}"
             visual_count += 1
     print(f"PASS: project bindings, {len(tables)} tables, {sum(map(len, measures.values()))} measures, 3 pages, {visual_count} visuals")
+    print("PASS: required project files, including definition/version.json (report definition 2.0.0)")
     print("PASS: embedded sample counts 8 total / 2 normal / 2 moderate / 4 critical / 3 rejected; scope and age rules")
 
 

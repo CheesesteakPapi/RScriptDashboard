@@ -231,6 +231,9 @@ def build_report() -> None:
         "version": "1.0", "artifacts": [{"report": {"path": REPORT.name}}], "settings": {"enableAutoRecovery": True}})
     write(REPORT / "definition.pbir", {"$schema": SCHEMA + "fabric/item/report/definitionProperties/2.0.0/schema.json",
                                       "version": "4.0", "datasetReference": {"byPath": {"path": "../" + MODEL.name}}})
+    write(REPORT / "definition/version.json", {
+        "$schema": SCHEMA + "fabric/item/report/definition/versionMetadata/1.0.0/schema.json",
+        "version": "2.0.0"})
     theme_name = "BWCTheme"
     write(REPORT / "StaticResources/RegisteredResources/BWCTheme.json", {
         "name": "BWC reporting", "dataColors": ["#245C82", "#C41230", "#D98500", "#6B7480", "#499898", "#7B6299"],
