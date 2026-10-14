@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Normal Items"
+                  "Property": "Report Normal Items"
                 }
               },
-              "queryRef": "Uncategorized.Normal Items",
-              "nativeQueryRef": "Normal Items"
+              "queryRef": "Uncategorized.Report Normal Items",
+              "nativeQueryRef": "Report Normal Items",
+              "displayName": "Normal Items"
             }
           ]
         }

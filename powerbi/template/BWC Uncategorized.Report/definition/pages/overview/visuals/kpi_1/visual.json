@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Critical Items"
+                  "Property": "Report Critical Items"
                 }
               },
-              "queryRef": "Uncategorized.Critical Items",
-              "nativeQueryRef": "Critical Items"
+              "queryRef": "Uncategorized.Report Critical Items",
+              "nativeQueryRef": "Report Critical Items",
+              "displayName": "Critical Items"
             }
           ]
         }

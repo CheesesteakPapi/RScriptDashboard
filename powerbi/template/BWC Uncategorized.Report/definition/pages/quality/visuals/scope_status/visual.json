@@ -150,7 +150,8 @@
                 }
               },
               "queryRef": "Uncategorized.Report Subtitle",
-              "nativeQueryRef": "Report Subtitle"
+              "nativeQueryRef": "Report Subtitle",
+              "displayName": "Subtitle"
             }
           ]
         }

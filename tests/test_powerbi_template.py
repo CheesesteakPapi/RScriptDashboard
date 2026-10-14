@@ -34,3 +34,40 @@ class TemplateLoaderTests(unittest.TestCase):
         self.version.write_text(json.dumps(value))
         with self.assertRaisesRegex(AssertionError, "Unsupported report definition version"):
             VALIDATION.validate_required_files(self.project)
+
+    def model(self):
+        return json.loads((self.project / "BWC Uncategorized.SemanticModel/model.bim").read_text())["model"]
+
+    def test_generated_measure_names_do_not_collide_with_columns(self):
+        VALIDATION.validate_model_names(self.model())
+
+    def test_snapshot_date_measure_collision_is_rejected(self):
+        model = self.model()
+        model["tables"][0]["measures"][0]["name"] = "Snapshot Date"
+        with self.assertRaisesRegex(AssertionError, "Measure name collides with a column: Snapshot Date"):
+            VALIDATION.validate_model_names(model)
+
+    def test_case_insensitive_same_table_column_collision_is_rejected(self):
+        model = self.model()
+        model["tables"][0]["measures"][0]["name"] = "age BAND color"
+        with self.assertRaisesRegex(AssertionError, "Measure name collides with a column"):
+            VALIDATION.validate_model_names(model)
+
+    def test_duplicate_measures_across_tables_are_rejected(self):
+        model = self.model()
+        existing = model["tables"][0]["measures"][0]
+        model["tables"][1]["measures"] = [{**existing, "name": existing["name"].swapcase()}]
+        with self.assertRaisesRegex(AssertionError, "Duplicate measure name"):
+            VALIDATION.validate_model_names(model)
+
+    def test_stale_unqualified_measure_reference_is_rejected(self):
+        model = self.model()
+        model["tables"][0]["measures"][0]["expression"] = "FORMAT([Snapshot Date], \"yyyy-MM-dd\")"
+        with self.assertRaisesRegex(AssertionError, "Unknown DAX measure reference"):
+            VALIDATION.validate_dax_references(model)
+
+    def test_missing_qualified_dax_column_is_rejected(self):
+        model = self.model()
+        model["tables"][0]["measures"][0]["expression"] = "MAX('Snapshot'[Missing Date])"
+        with self.assertRaisesRegex(AssertionError, "Unknown DAX column"):
+            VALIDATION.validate_dax_references(model)

@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Data Mode"
+                  "Property": "Report Data Mode"
                 }
               },
-              "queryRef": "Uncategorized.Data Mode",
-              "nativeQueryRef": "Data Mode"
+              "queryRef": "Uncategorized.Report Data Mode",
+              "nativeQueryRef": "Report Data Mode",
+              "displayName": "Data Mode"
             }
           ]
         }

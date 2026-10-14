@@ -1,6 +1,6 @@
 # BWC Uncategorized Power BI template
 
-Use [the project implementation guide](../../docs/implementation-guide.md) for the complete SharePoint, Power Automate, credential, and Power BI rollout.
+Use [the project implementation guide](https://github.com/CheesesteakPapi/RScriptDashboard/blob/main/docs/implementation-guide.md) for the complete SharePoint, Power Automate, credential, and Power BI rollout.
 
 Open **BWC Uncategorized.pbip** in a current Power BI Desktop release. Keep both adjacent artifact folders with it. Select **Refresh** to load the embedded synthetic data; this project contains definitions, without a cached data model.
 
@@ -13,6 +13,8 @@ The project contains three pages, 39 native visuals, three import tables, and 18
 | Data Quality | Rejection reasons and source records; published run identity, creation scope, refresh mode, state/acquisition counts, and update watermark. |
 
 Component, AOR and age-band slicers are configured to synchronize between Overview and Remediation. Snapshot metadata remains independent of evidence filters. DataQuality records are loaded for the report audience; hiding a page does not secure its data. Publish this version only to the authorized remediation audience or remove RejectedRows and its visuals for a broader report.
+
+Model measures use a **Report** prefix, such as `Report Snapshot Date`, to avoid colliding with source columns. Visual labels retain the reporting terminology. The workbook columns keep their existing source names.
 
 **Normal: 0–14 calendar days since upload. Moderate: 15–29. Critical: 30+.** These are upload-age bands, not three-business-day compliance measures. Recording creation starts March 11, 2024.
 
@@ -65,3 +67,5 @@ Local verification also validated 48 project/report documents against [Microsoft
 ## Update an earlier copy
 
 If Desktop reports that version.json is missing, close the project, run `git pull` from your cloned repository, and reopen BWC Uncategorized.pbip. The corrected project includes `BWC Uncategorized.Report/definition/version.json`; its report-definition version is 2.0.0, distinct from the entry-point definition.pbir version. ZIP users should extract the corrected download into a new folder and keep both artifact folders beside the .pbip file.
+
+If the semantic model reports that a measure cannot be created because a column has the same name, update the repository or extract the new model-fix ZIP into a fresh folder. The corrected model prefixes all measures with Report and updates DAX, visual, and formatting references together. Avoid fixing only Snapshot Date: other original measures had similar name overlaps.

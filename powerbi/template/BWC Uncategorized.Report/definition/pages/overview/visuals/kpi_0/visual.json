@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Total Uncategorized Items"
+                  "Property": "Report Total Uncategorized Items"
                 }
               },
-              "queryRef": "Uncategorized.Total Uncategorized Items",
-              "nativeQueryRef": "Total Uncategorized Items"
+              "queryRef": "Uncategorized.Report Total Uncategorized Items",
+              "nativeQueryRef": "Report Total Uncategorized Items",
+              "displayName": "Total Uncategorized Items"
             }
           ]
         }

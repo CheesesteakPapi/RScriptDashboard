@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Snapshot Date"
+                  "Property": "Report Snapshot Date"
                 }
               },
-              "queryRef": "Uncategorized.Snapshot Date",
-              "nativeQueryRef": "Snapshot Date"
+              "queryRef": "Uncategorized.Report Snapshot Date",
+              "nativeQueryRef": "Report Snapshot Date",
+              "displayName": "Snapshot Date"
             }
           ]
         }

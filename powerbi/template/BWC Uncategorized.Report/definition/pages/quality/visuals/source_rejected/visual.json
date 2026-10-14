@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Rejected Source Rows"
+                  "Property": "Report Rejected Source Rows"
                 }
               },
-              "queryRef": "Uncategorized.Rejected Source Rows",
-              "nativeQueryRef": "Rejected Source Rows"
+              "queryRef": "Uncategorized.Report Rejected Source Rows",
+              "nativeQueryRef": "Report Rejected Source Rows",
+              "displayName": "Rejected Source Rows"
             }
           ]
         }

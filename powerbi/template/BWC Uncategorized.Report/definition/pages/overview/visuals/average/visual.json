@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Average Days Since Upload"
+                  "Property": "Report Average Days Since Upload"
                 }
               },
-              "queryRef": "Uncategorized.Average Days Since Upload",
-              "nativeQueryRef": "Average Days Since Upload"
+              "queryRef": "Uncategorized.Report Average Days Since Upload",
+              "nativeQueryRef": "Report Average Days Since Upload",
+              "displayName": "Average Days Since Upload"
             }
           ]
         }

@@ -1,32 +1,33 @@
 // Create each measure separately in the semantic model.
 // Uncategorized has one row per valid, eligible, uncategorized Evidence ID.
 // Snapshot is a disconnected one-row refresh/status table, not another fact table.
+// Report-prefixed measure names avoid collisions with workbook/model columns.
 
-Total Uncategorized Items = COALESCE(COUNTA('Uncategorized'[Evidence ID]), 0)
+Report Total Uncategorized Items = COALESCE(COUNTA('Uncategorized'[Evidence ID]), 0)
 
-Critical Items =
+Report Critical Items =
     COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = "Critical")), 0)
 
-Moderate Items =
+Report Moderate Items =
     COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = "Moderate")), 0)
 
-Normal Items =
+Report Normal Items =
     COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = "Normal")), 0)
 
-Oldest Days Since Upload = COALESCE(MAX('Uncategorized'[Days Since Upload]), 0)
+Report Oldest Days Since Upload = COALESCE(MAX('Uncategorized'[Days Since Upload]), 0)
 
-Average Days Since Upload = AVERAGE('Uncategorized'[Days Since Upload])
+Report Average Days Since Upload = AVERAGE('Uncategorized'[Days Since Upload])
 
-Snapshot Date = MAX('Snapshot'[Snapshot Date])
+Report Snapshot Date = MAX('Snapshot'[Snapshot Date])
 
-Creation From Date = MAX('Snapshot'[Creation From Date])
+Report Creation From Date = MAX('Snapshot'[Creation From Date])
 
-Creation To Date = MAX('Snapshot'[Creation To Date])
+Report Creation To Date = MAX('Snapshot'[Creation To Date])
 
-Rejected Source Rows = COALESCE(SUM('Snapshot'[Rejected Rows]), 0)
+Report Rejected Source Rows = COALESCE(SUM('Snapshot'[Rejected Rows]), 0)
 
-Data Mode = IF(SELECTEDVALUE('Snapshot'[Sample Data], FALSE()), "SYNTHETIC DEMO DATA", "Production data")
+Report Data Mode = IF(SELECTEDVALUE('Snapshot'[Sample Data], FALSE()), "SYNTHETIC DEMO DATA", "Production data")
 
-Age Band Color = SELECTEDVALUE('Uncategorized'[Age Band Color], "#243746")
+Report Age Band Color = SELECTEDVALUE('Uncategorized'[Age Band Color], "#243746")
 
-Updated Through UTC = SELECTEDVALUE('Snapshot'[Updated Through UTC])
+Report Updated Through UTC = SELECTEDVALUE('Snapshot'[Updated Through UTC])

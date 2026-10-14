@@ -35,6 +35,10 @@ def expression(name: str, source: str) -> dict:
     return {"name": name, "kind": "m", "expression": source.splitlines()}
 
 
+def measure_name(name: str) -> str:
+    return name if name.startswith("Report ") else "Report " + name
+
+
 def column(name: str, kind: str = "string", hidden: bool = False) -> dict:
     result = {"name": name, "dataType": kind, "sourceColumn": name, "summarizeBy": "none"}
     if hidden:
@@ -122,29 +126,30 @@ def build_model() -> None:
     for block in re.split(r"\n\s*\n", dax):
         name, body = block.split("=", 1)
         name = name.strip()
-        item = {"name": name, "expression": body.strip().splitlines(), "displayFolder": "Status" if name in {
+        base_name = name.removeprefix("Report ")
+        item = {"name": name, "expression": body.strip().splitlines(), "displayFolder": "Status" if base_name in {
             "Data Mode", "Snapshot Date", "Creation From Date", "Creation To Date", "Updated Through UTC", "Rejected Source Rows"} else "Backlog"}
-        if name in {"Snapshot Date", "Creation From Date", "Creation To Date"}:
+        if base_name in {"Snapshot Date", "Creation From Date", "Creation To Date"}:
             item["formatString"] = "yyyy-MM-dd"
-        elif name == "Average Days Since Upload":
+        elif base_name == "Average Days Since Upload":
             item["formatString"] = "0.0"
-        elif name not in {"Data Mode", "Age Band Color", "Updated Through UTC"}:
+        elif base_name not in {"Data Mode", "Age Band Color", "Updated Through UTC"}:
             item["formatString"] = "#,0"
-        if name == "Data Mode":
+        if base_name == "Data Mode":
             item["expression"] = ['SWITCH(TRUE(), COUNTROWS(\'Snapshot\') <> 1, "SOURCE NOT READY",',
                                   'SELECTEDVALUE(\'Snapshot\'[Sample Data]) = TRUE(), "SYNTHETIC DEMO DATA",',
                                   'ISBLANK(SELECTEDVALUE(\'Snapshot\'[Sample Data])), "SOURCE MODE UNKNOWN", "PRODUCTION DATA")']
         measures.append(item)
     measures.extend([
-        {"name": "Report Subtitle", "displayFolder": "Status", "expression": [
-            '"Snapshot " & FORMAT([Snapshot Date], "yyyy-MM-dd") & "  |  Recording scope " &',
-            'FORMAT([Creation From Date], "yyyy-MM-dd") & " to " & FORMAT([Creation To Date], "yyyy-MM-dd")']},
-        {"name": "Updated Window Label", "displayFolder": "Status", "expression": [
-            'VAR Stamp = [Updated Through UTC]',
+        {"name": measure_name("Subtitle"), "displayFolder": "Status", "expression": [
+            '"Snapshot " & FORMAT([Report Snapshot Date], "yyyy-MM-dd") & "  |  Recording scope " &',
+            'FORMAT([Report Creation From Date], "yyyy-MM-dd") & " to " & FORMAT([Report Creation To Date], "yyyy-MM-dd")']},
+        {"name": measure_name("Updated Window Label"), "displayFolder": "Status", "expression": [
+            'VAR Stamp = [Report Updated Through UTC]',
             'RETURN IF(ISBLANK(Stamp) || Stamp = "", "API update watermark not available", "Updated through " & Stamp & " UTC")']},
-        {"name": "Rejected Records", "expression": "COALESCE(COUNTROWS('RejectedRows'), 0)", "formatString": "#,0", "displayFolder": "Quality"},
-        {"name": "Empty Backlog Message", "expression": 'IF([Total Uncategorized Items] = 0, "No uncategorized evidence in the selected scope", "")', "displayFolder": "Status"},
-        {"name": "Age Band Font Color", "expression": 'IF(SELECTEDVALUE(\'Uncategorized\'[Age Band]) = "Critical", "#FFFFFF", "#243746")', "displayFolder": "Formatting"},
+        {"name": measure_name("Rejected Records"), "expression": "COALESCE(COUNTROWS('RejectedRows'), 0)", "formatString": "#,0", "displayFolder": "Quality"},
+        {"name": measure_name("Empty Backlog Message"), "expression": 'IF([Report Total Uncategorized Items] = 0, "No uncategorized evidence in the selected scope", "")', "displayFolder": "Status"},
+        {"name": measure_name("Age Band Font Color"), "expression": 'IF(SELECTEDVALUE(\'Uncategorized\'[Age Band]) = "Critical", "#FFFFFF", "#243746")', "displayFolder": "Formatting"},
     ])
     detail_table["measures"] = measures
     write(MODEL / "definition.pbism", {"$schema": SCHEMA + "fabric/item/semanticModel/definitionProperties/1.0.0/schema.json",
@@ -173,10 +178,15 @@ def color(value: str) -> dict:
 
 
 def field(table: str, name: str, measure: bool = False) -> dict:
+    if measure:
+        name = measure_name(name)
     return {"Measure" if measure else "Column": {"Expression": {"SourceRef": {"Entity": table}}, "Property": name}}
 
 
 def projection(table: str, name: str, measure: bool = False, label: str | None = None) -> dict:
+    if measure:
+        label = label or name.removeprefix("Report ")
+        name = measure_name(name)
     item = {"field": field(table, name, measure), "queryRef": table + "." + name, "nativeQueryRef": name}
     if label:
         item["displayName"] = label
@@ -270,7 +280,7 @@ def build_report() -> None:
     slicer("overview", "aor_filter", "AOR", (336, 256, 452, 92, 8))
     slicer("overview", "band_filter", "Age Band", (804, 256, 452, 92, 9))
     series = [projection("Uncategorized", name, True) for name in ("Critical Items", "Moderate Items", "Normal Items")]
-    series_colors = [{"selector": {"metadata": "Uncategorized." + name}, "properties": {"fill": color(ink)}}
+    series_colors = [{"selector": {"metadata": "Uncategorized." + measure_name(name)}, "properties": {"fill": color(ink)}}
                      for name, ink in [("Critical Items", "#C41230"), ("Moderate Items", "#FFA500"), ("Normal Items", "#FFFF00")]]
     visual("overview", "component_backlog", "clusteredBarChart", (24, 364, 602, 266, 10), "Backlog by component and age",
            {"Category": [projection("Uncategorized", "Component")], "Y": series}, {"dataPoint": series_colors, "labels": props(show=literal(True))},

@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Oldest Days Since Upload"
+                  "Property": "Report Oldest Days Since Upload"
                 }
               },
-              "queryRef": "Uncategorized.Oldest Days Since Upload",
-              "nativeQueryRef": "Oldest Days Since Upload"
+              "queryRef": "Uncategorized.Report Oldest Days Since Upload",
+              "nativeQueryRef": "Report Oldest Days Since Upload",
+              "displayName": "Oldest Days Since Upload"
             }
           ]
         }

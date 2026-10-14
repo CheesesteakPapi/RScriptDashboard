@@ -287,7 +287,7 @@
         ],
         "measures": [
           {
-            "name": "Total Uncategorized Items",
+            "name": "Report Total Uncategorized Items",
             "expression": [
               "COALESCE(COUNTA('Uncategorized'[Evidence ID]), 0)"
             ],
@@ -295,7 +295,7 @@
             "formatString": "#,0"
           },
           {
-            "name": "Critical Items",
+            "name": "Report Critical Items",
             "expression": [
               "COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = \"Critical\")), 0)"
             ],
@@ -303,7 +303,7 @@
             "formatString": "#,0"
           },
           {
-            "name": "Moderate Items",
+            "name": "Report Moderate Items",
             "expression": [
               "COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = \"Moderate\")), 0)"
             ],
@@ -311,7 +311,7 @@
             "formatString": "#,0"
           },
           {
-            "name": "Normal Items",
+            "name": "Report Normal Items",
             "expression": [
               "COALESCE(CALCULATE(COUNTROWS('Uncategorized'), KEEPFILTERS('Uncategorized'[Age Band] = \"Normal\")), 0)"
             ],
@@ -319,7 +319,7 @@
             "formatString": "#,0"
           },
           {
-            "name": "Oldest Days Since Upload",
+            "name": "Report Oldest Days Since Upload",
             "expression": [
               "COALESCE(MAX('Uncategorized'[Days Since Upload]), 0)"
             ],
@@ -327,7 +327,7 @@
             "formatString": "#,0"
           },
           {
-            "name": "Average Days Since Upload",
+            "name": "Report Average Days Since Upload",
             "expression": [
               "AVERAGE('Uncategorized'[Days Since Upload])"
             ],
@@ -335,7 +335,7 @@
             "formatString": "0.0"
           },
           {
-            "name": "Snapshot Date",
+            "name": "Report Snapshot Date",
             "expression": [
               "MAX('Snapshot'[Snapshot Date])"
             ],
@@ -343,7 +343,7 @@
             "formatString": "yyyy-MM-dd"
           },
           {
-            "name": "Creation From Date",
+            "name": "Report Creation From Date",
             "expression": [
               "MAX('Snapshot'[Creation From Date])"
             ],
@@ -351,7 +351,7 @@
             "formatString": "yyyy-MM-dd"
           },
           {
-            "name": "Creation To Date",
+            "name": "Report Creation To Date",
             "expression": [
               "MAX('Snapshot'[Creation To Date])"
             ],
@@ -359,7 +359,7 @@
             "formatString": "yyyy-MM-dd"
           },
           {
-            "name": "Rejected Source Rows",
+            "name": "Report Rejected Source Rows",
             "expression": [
               "COALESCE(SUM('Snapshot'[Rejected Rows]), 0)"
             ],
@@ -367,7 +367,7 @@
             "formatString": "#,0"
           },
           {
-            "name": "Data Mode",
+            "name": "Report Data Mode",
             "expression": [
               "SWITCH(TRUE(), COUNTROWS('Snapshot') <> 1, \"SOURCE NOT READY\",",
               "SELECTEDVALUE('Snapshot'[Sample Data]) = TRUE(), \"SYNTHETIC DEMO DATA\",",
@@ -376,14 +376,14 @@
             "displayFolder": "Status"
           },
           {
-            "name": "Age Band Color",
+            "name": "Report Age Band Color",
             "expression": [
               "SELECTEDVALUE('Uncategorized'[Age Band Color], \"#243746\")"
             ],
             "displayFolder": "Backlog"
           },
           {
-            "name": "Updated Through UTC",
+            "name": "Report Updated Through UTC",
             "expression": [
               "SELECTEDVALUE('Snapshot'[Updated Through UTC])"
             ],
@@ -393,31 +393,31 @@
             "name": "Report Subtitle",
             "displayFolder": "Status",
             "expression": [
-              "\"Snapshot \" & FORMAT([Snapshot Date], \"yyyy-MM-dd\") & \"  |  Recording scope \" &",
-              "FORMAT([Creation From Date], \"yyyy-MM-dd\") & \" to \" & FORMAT([Creation To Date], \"yyyy-MM-dd\")"
+              "\"Snapshot \" & FORMAT([Report Snapshot Date], \"yyyy-MM-dd\") & \"  |  Recording scope \" &",
+              "FORMAT([Report Creation From Date], \"yyyy-MM-dd\") & \" to \" & FORMAT([Report Creation To Date], \"yyyy-MM-dd\")"
             ]
           },
           {
-            "name": "Updated Window Label",
+            "name": "Report Updated Window Label",
             "displayFolder": "Status",
             "expression": [
-              "VAR Stamp = [Updated Through UTC]",
+              "VAR Stamp = [Report Updated Through UTC]",
               "RETURN IF(ISBLANK(Stamp) || Stamp = \"\", \"API update watermark not available\", \"Updated through \" & Stamp & \" UTC\")"
             ]
           },
           {
-            "name": "Rejected Records",
+            "name": "Report Rejected Records",
             "expression": "COALESCE(COUNTROWS('RejectedRows'), 0)",
             "formatString": "#,0",
             "displayFolder": "Quality"
           },
           {
-            "name": "Empty Backlog Message",
-            "expression": "IF([Total Uncategorized Items] = 0, \"No uncategorized evidence in the selected scope\", \"\")",
+            "name": "Report Empty Backlog Message",
+            "expression": "IF([Report Total Uncategorized Items] = 0, \"No uncategorized evidence in the selected scope\", \"\")",
             "displayFolder": "Status"
           },
           {
-            "name": "Age Band Font Color",
+            "name": "Report Age Band Font Color",
             "expression": "IF(SELECTEDVALUE('Uncategorized'[Age Band]) = \"Critical\", \"#FFFFFF\", \"#243746\")",
             "displayFolder": "Formatting"
           }

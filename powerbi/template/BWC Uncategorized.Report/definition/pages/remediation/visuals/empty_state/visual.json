@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Empty Backlog Message"
+                  "Property": "Report Empty Backlog Message"
                 }
               },
-              "queryRef": "Uncategorized.Empty Backlog Message",
-              "nativeQueryRef": "Empty Backlog Message"
+              "queryRef": "Uncategorized.Report Empty Backlog Message",
+              "nativeQueryRef": "Report Empty Backlog Message",
+              "displayName": "Empty Backlog Message"
             }
           ]
         }

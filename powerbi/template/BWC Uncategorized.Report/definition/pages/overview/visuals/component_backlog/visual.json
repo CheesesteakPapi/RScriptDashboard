@@ -164,11 +164,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Critical Items"
+                  "Property": "Report Critical Items"
                 }
               },
-              "queryRef": "Uncategorized.Critical Items",
-              "nativeQueryRef": "Critical Items"
+              "queryRef": "Uncategorized.Report Critical Items",
+              "nativeQueryRef": "Report Critical Items",
+              "displayName": "Critical Items"
             },
             {
               "field": {
@@ -178,11 +179,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Moderate Items"
+                  "Property": "Report Moderate Items"
                 }
               },
-              "queryRef": "Uncategorized.Moderate Items",
-              "nativeQueryRef": "Moderate Items"
+              "queryRef": "Uncategorized.Report Moderate Items",
+              "nativeQueryRef": "Report Moderate Items",
+              "displayName": "Moderate Items"
             },
             {
               "field": {
@@ -192,11 +194,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Normal Items"
+                  "Property": "Report Normal Items"
                 }
               },
-              "queryRef": "Uncategorized.Normal Items",
-              "nativeQueryRef": "Normal Items"
+              "queryRef": "Uncategorized.Report Normal Items",
+              "nativeQueryRef": "Report Normal Items",
+              "displayName": "Normal Items"
             }
           ]
         }
@@ -211,7 +214,7 @@
                     "Entity": "Uncategorized"
                   }
                 },
-                "Property": "Critical Items"
+                "Property": "Report Critical Items"
               }
             },
             "direction": "Descending"
@@ -224,7 +227,7 @@
       "dataPoint": [
         {
           "selector": {
-            "metadata": "Uncategorized.Critical Items"
+            "metadata": "Uncategorized.Report Critical Items"
           },
           "properties": {
             "fill": {
@@ -242,7 +245,7 @@
         },
         {
           "selector": {
-            "metadata": "Uncategorized.Moderate Items"
+            "metadata": "Uncategorized.Report Moderate Items"
           },
           "properties": {
             "fill": {
@@ -260,7 +263,7 @@
         },
         {
           "selector": {
-            "metadata": "Uncategorized.Normal Items"
+            "metadata": "Uncategorized.Report Normal Items"
           },
           "properties": {
             "fill": {

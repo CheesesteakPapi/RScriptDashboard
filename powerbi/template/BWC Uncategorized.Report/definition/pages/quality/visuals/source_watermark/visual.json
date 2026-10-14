@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Updated Window Label"
+                  "Property": "Report Updated Window Label"
                 }
               },
-              "queryRef": "Uncategorized.Updated Window Label",
-              "nativeQueryRef": "Updated Window Label"
+              "queryRef": "Uncategorized.Report Updated Window Label",
+              "nativeQueryRef": "Report Updated Window Label",
+              "displayName": "Updated Window Label"
             }
           ]
         }

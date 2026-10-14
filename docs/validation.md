@@ -4,14 +4,14 @@ Updated on October 14, 2026. Production architecture: Power Automate cloud flow,
 
 | Check | Observed result |
 | --- | --- |
-| Python business rules / file exports / API contract | 45 tests passed, including URL/form encoding, reporting pagination, field mapping, and error policy. |
+| Python business rules / file exports / API contract | 51 tests passed, including URL/form encoding, reporting pagination, field mapping, and error policy. |
 | Office Script transformation and workbook-call tests | 24 checks passed with a workbook test double, including two consecutive refreshes, category/status changes, age recalculation, stale-base/watermark-gap guards, and the read-only state script. |
 | Shared synthetic fixture | Both implementations produce 8 total, 2 normal, 2 moderate, 4 critical, and 3 rejected records. |
 | Synthetic API fixture | Three nonempty report pages and an empty terminal page produce the same business counts; API input has no CSV blank row. |
 | Incremental synthetic fixtures | Initial/backfill and subsequent incremental runs retain all state and produce 3 current items after changes: 1 normal, 1 moderate, 1 critical. |
 | API schemas | All three synthetic JSON inputs validate; both Power Automate Parse JSON schemas are valid Draft 4. |
 | Power Query files | All 6 parsed successfully with Microsoft's Power Query parser 2.0.0. This is syntax verification, not M execution. |
-| Editable Power BI project | 3 pages, 39 visuals, 3 tables, 18 measures; all visual/model references, canvas bounds and embedded sample counts pass. All 48 project/report documents validate against Microsoft schemas; the theme validates against the August 2026 schema. All 9 template M expressions/partitions parse. Required loader-file checks and three regression tests cover missing/wrong report version metadata. |
+| Editable Power BI project | 3 pages, 39 visuals, 3 tables, 18 measures; all visual/model references, canvas bounds and embedded sample counts pass. All 48 project/report documents validate against Microsoft schemas; the theme validates against the August 2026 schema. All 9 template M expressions/partitions parse. Required loader-file checks and nine regression tests cover missing/wrong version metadata, measure/column name collisions, duplicate measures, and stale DAX field references. Case-insensitive naming checks, DAX reference checks, and visual formatting-selector checks pass. |
 | CSV/Excel reference run | Six CSVs, a seven-sheet Excel workbook, and a completed-run manifest generated. The workbook reopened with 8 detail records. |
 | Manifest example | Validated against the JSON schema. |
 | Python dependency installation | Isolated environment installed openpyxl 3.1.5 and et_xmlfile 2.0.0; pip check passed. |
@@ -25,3 +25,5 @@ The Office Script's local tests do not validate native Excel Online API behavior
 No real officer data or evidence exports were used. The original empty `Script 1` remains unchanged. These verification results were recorded locally before GitHub publication. Cloud-flow creation and Power BI report publication remain outstanding.
 
 The first user-reported Desktop open failed because the original project omitted `definition/version.json`. The corrected generator and packaged project now include that file, and validation fails when it is absent. Desktop reopening/rendering after this correction has not been verified in this cloud runtime.
+
+The subsequent user-reported semantic-model error identified a measure/column name collision. All report measures now use a Report prefix, including Report Snapshot Date and Report Age Band Color. DAX, visuals, and formatting references were updated together. Local checks reject the original naming overlaps; native Desktop loading after this correction remains unverified.

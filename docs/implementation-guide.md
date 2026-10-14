@@ -65,7 +65,7 @@ Preserve your own edits if Git reports a conflict. Extracting a fresh ZIP into a
 5. Verify **8 total, 4 critical, 2 moderate, 2 normal, and 3 rejected records**, with **SYNTHETIC DEMO DATA** displayed.
 6. Use **File → Save As → Power BI file (.pbix)** for a compiled copy if needed. Keep the project source for future editing.
 
-The sample snapshot stays fixed at **October 13, 2026**, even when opened later.
+The sample snapshot stays fixed at **October 13, 2026**, even when opened later. Measures use a **Report** prefix (for example, `Report Snapshot Date`); workbook columns retain their source names. This prevents model naming collisions while visual titles keep their familiar labels.
 
 **Checkpoint:** the sample opens and refreshes in Desktop. For the earlier `version.json` error, update the checkout: the corrected project contains `BWC Uncategorized.Report/definition/version.json`. Renaming a ZIP or PBIP to PBIX does not compile a report.
 
@@ -635,6 +635,7 @@ Monitor failed Power Automate runs and model Refresh history. Configure notifica
 | Symptom | Check |
 | --- | --- |
 | version.json missing | Update clone/corrected ZIP; preserve adjacent folders and verify Report/definition/version.json. |
+| A measure cannot be created because a column has the same name | Update the complete project/model-fix ZIP. Measures now have a Report prefix and their DAX/visual references are updated together. |
 | Desktop still cannot open/render | Capture the exact error and Desktop version; native compatibility remains to be verified. |
 | Automate tab/Run script unavailable | Check tenant enablement and licensing for Office Scripts/Excel Online. |
 | Script not listed | Check script ownership/sharing and the connector identity. |

@@ -146,11 +146,12 @@
                       "Entity": "Uncategorized"
                     }
                   },
-                  "Property": "Moderate Items"
+                  "Property": "Report Moderate Items"
                 }
               },
-              "queryRef": "Uncategorized.Moderate Items",
-              "nativeQueryRef": "Moderate Items"
+              "queryRef": "Uncategorized.Report Moderate Items",
+              "nativeQueryRef": "Report Moderate Items",
+              "displayName": "Moderate Items"
             }
           ]
         }

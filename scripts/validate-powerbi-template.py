@@ -47,11 +47,52 @@ def validate_required_files(project: Path = PROJECT) -> Path:
     return report
 
 
+def validate_model_names(model: dict) -> None:
+    """Use disjoint measure/column names and globally unique measure names."""
+    all_columns = {column["name"].strip().casefold() for table in model["tables"]
+                   for column in table.get("columns", [])}
+    seen_measures = set()
+    seen_tables = set()
+    for table in model["tables"]:
+        table_key = table["name"].strip().casefold()
+        assert table_key not in seen_tables, f"Duplicate table name: {table['name']}"
+        seen_tables.add(table_key)
+        columns = [column["name"].strip().casefold() for column in table.get("columns", [])]
+        assert len(columns) == len(set(columns)), f"Duplicate column name in {table['name']}"
+        for measure in table.get("measures", []):
+            key = measure["name"].strip().casefold()
+            assert key not in all_columns, f"Measure name collides with a column: {measure['name']}"
+            assert key not in seen_measures, f"Duplicate measure name: {measure['name']}"
+            seen_measures.add(key)
+
+
+def validate_dax_references(model: dict) -> None:
+    """This template qualifies column references and leaves measure references bare.
+
+    Check renamed references; this is not a DAX parser or expression evaluator.
+    """
+    columns = {table["name"]: {column["name"] for column in table.get("columns", [])}
+               for table in model["tables"]}
+    measures = {measure["name"] for table in model["tables"] for measure in table.get("measures", [])}
+    qualified = re.compile(r"'([^']+)'\[([^\]]+)\]")
+    for table in model["tables"]:
+        for measure in table.get("measures", []):
+            value = measure["expression"]
+            source = "\n".join(value) if isinstance(value, list) else value
+            for entity, member in qualified.findall(source):
+                assert member in columns.get(entity, set()), f"Unknown DAX column: {entity}[{member}]"
+            bare_source = qualified.sub("", source)
+            for member in re.findall(r"\[([^\]]+)\]", bare_source):
+                assert member in measures, f"Unknown DAX measure reference in {measure['name']}: {member}"
+
+
 def validate_bindings() -> None:
     report = validate_required_files()
     definition = read(report / "definition.pbir")
     model_dir = (report / definition["datasetReference"]["byPath"]["path"]).resolve()
     model = read(model_dir / "model.bim")["model"]
+    validate_model_names(model)
+    validate_dax_references(model)
     assert model_dir.is_relative_to(PROJECT.resolve())
     tables = {table["name"]: table for table in model["tables"]}
     assert set(tables) == {"Uncategorized", "Snapshot", "RejectedRows"}
@@ -111,9 +152,17 @@ def validate_bindings() -> None:
                         item = node[kind]
                         entity = item["Expression"]["SourceRef"]["Entity"]
                         assert item["Property"] in catalog[entity], f"Missing {kind}: {entity}.{item['Property']}"
+            query_refs = {item["queryRef"] for role in visual["visual"].get("query", {}).get("queryState", {}).values()
+                          for item in role["projections"]}
+            for node in walk(visual["visual"].get("objects", {})):
+                metadata = node.get("selector", {}).get("metadata")
+                if metadata is not None:
+                    assert metadata in query_refs, f"Formatting selector refers to an absent visual field: {metadata}"
             visual_count += 1
     print(f"PASS: project bindings, {len(tables)} tables, {sum(map(len, measures.values()))} measures, 3 pages, {visual_count} visuals")
     print("PASS: required project files, including definition/version.json (report definition 2.0.0)")
+    print("PASS: case-insensitive measure/column name separation and globally unique measures")
+    print("PASS: DAX field references and visual formatting selectors resolve after renaming")
     print("PASS: embedded sample counts 8 total / 2 normal / 2 moderate / 4 critical / 3 rejected; scope and age rules")
 
 
